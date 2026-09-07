@@ -1,142 +1,114 @@
+---
+import VisitorSection from "./Sections/VisitorSection.astro";
+---
+
 <header class="site-header">
-    <div class="utility-bar text-white">
-        <div
-            class="container d-flex flex-wrap align-items-center justify-content-between gap-2"
+  <div class="utility-bar text-white">
+    <div
+      class="container d-flex flex-wrap align-items-center justify-content-between gap-2"
+    >
+      <div class="d-flex flex-wrap align-items-center gap-3 small">
+        <span
+          ><i class="fa-brands fa-youtube me-2" aria-hidden="true"
+          ></i>YouTube</span
         >
-            <div class="d-flex flex-wrap align-items-center gap-3 small">
-                <span
-                    ><i class="fa-brands fa-youtube me-2" aria-hidden="true"
-                    ></i>YouTube</span
-                >
-                <span
-                    ><i class="fa-solid fa-phone me-2" aria-hidden="true"
-                    ></i>9897468767</span
-                >
-                <span
-                    ><i class="fa-solid fa-location-dot me-2" aria-hidden="true"
-                    ></i>59, Vipin Garden Extension Dwarka, New Delhi-110059</span
-                >
-            </div>
-            <div class="header-actions d-flex align-items-stretch">
-                <a href="#donate"
-                    ><i class="fa-regular fa-heart me-2" aria-hidden="true"
-                    ></i>Donate</a
-                >
-                <a href="#join"
-                    ><i class="fa-solid fa-user me-2" aria-hidden="true"
-                    ></i>Become a Member</a
-                >
-                <a class="m-1" href="#upi" aria-label="upi"
-                    ><img src="assets/upi-icon.png" alt="UPI" /></a
-                >
-            </div>
-        </div>
-    </div>
-
-    <div class="identity-bar">
-        <div
-            class="container d-flex align-items-center justify-content-between gap-4 py-3"
+        <span
+          ><i class="fa-solid fa-phone me-2" aria-hidden="true"
+          ></i>9897468767</span
         >
-            <a
-                class="brand-mark"
-                href="home.html"
-                aria-label="Voice of Ex-Servicemen Society home"
-            >
-                <img
-                    src="assets/logo.png"
-                    alt="Voice of Ex-Servicemen Society logo"
-                    width="192"
-                    height="188"
-                />
-            </a>
-            <div class="brand-copy text-center flex-grow-1">
-                <div class="fw-bold">
-                    Voice of Ex-Servicemen Society (Regd.) India
-                </div>
-                <small class="text-success d-block"
-                    >(Registration No. 2223/2014-15 under Society Act 1860)</small
-                >
-                <small class="d-block"
-                    >(An All India Ex-Servicemen JCOs/NCOs/ORs Movement)</small
-                >
-            </div>
-            <aside class="visitor-panel p-2">
-                <div><strong>Total Visitor</strong> - 151498</div>
-                <div><strong>Total Visit</strong> - 3418763</div>
-                <div class="translator">
-                    <div id="google_translate_element"></div>
-                    <script type="text/javascript">
-                        function googleTranslateElementInit() {
-                            new google.translate.TranslateElement(
-                                {
-                                    pageLanguage: "en",
-                                    layout: google.translate.TranslateElement
-                                        .InlineLayout.SIMPLE,
-                                },
-                                "google_translate_element",
-                            );
-                        }
-                    </script><script
-                        type="text/javascript"
-                        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
-                    ></script>
-                </div>
-                <div class="social-links">
-                    <i class="fa-brands fa-facebook-f" aria-hidden="true"></i><i
-                        class="fa-brands fa-youtube"
-                        aria-hidden="true"></i>
-                </div>
-            </aside>
-        </div>
+        <span
+          ><i class="fa-solid fa-location-dot me-2" aria-hidden="true"></i>59,
+          Vipin Garden Extension Dwarka, New Delhi-110059</span
+        >
+      </div>
+      <div class="header-actions d-flex align-items-stretch">
+        <a href="#donate"
+          ><i class="fa-regular fa-heart me-2" aria-hidden="true"></i>Donate</a
+        >
+        <a href="#join"
+          ><i class="fa-solid fa-user me-2" aria-hidden="true"></i>Become a
+          Member</a
+        >
+        <a class="m-1" href="#upi" aria-label="upi"
+          ><img src="assets/upi-icon.png" alt="UPI" /></a
+        >
+      </div>
     </div>
+  </div>
 
-    <nav class="navbar navbar-expand-lg main-nav navbar-dark">
-        <div class="container">
-            <button
-                class="navbar-toggler ms-auto"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#nav"
-                aria-controls="nav"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-            >
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="nav">
-                <ul class="navbar-nav w-100 justify-content-between">
-                    <li class="nav-item">
-                        <a class="nav-link" href="./index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./about.html">About Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./team.html">Our Team</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./news.html">News/Events</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./services.html"
-                            >Court Case/Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./policy.html"
-                            >Policy Document</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./blog.html"
-                            >Blog/Legal HelpLine</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./contact.html">Contact Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./downloads.html">Download</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+  <div class="identity-bar">
+    <div
+      class="container d-flex align-items-center justify-content-between gap-4 py-3"
+    >
+      <a
+        class="brand-mark"
+        href="home.html"
+        aria-label="Voice of Ex-Servicemen Society home"
+      >
+        <img
+          src="assets/logo.png"
+          alt="Voice of Ex-Servicemen Society logo"
+          width="192"
+          height="188"
+        />
+      </a>
+      <div class="brand-copy text-center flex-grow-1">
+        <div class="fw-bold">Voice of Ex-Servicemen Society (Regd.) India</div>
+        <small class="text-success d-block"
+          >(Registration No. 2223/2014-15 under Society Act 1860)</small
+        >
+        <small class="d-block"
+          >(An All India Ex-Servicemen JCOs/NCOs/ORs Movement)</small
+        >
+      </div>
+      <VisitorSection />
+    </div>
+  </div>
+
+  <nav class="navbar navbar-expand-lg main-nav navbar-dark">
+    <div class="container">
+      <button
+        class="navbar-toggler ms-auto"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#nav"
+        aria-controls="nav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav w-100 justify-content-between">
+          <li class="nav-item">
+            <a class="nav-link" href="./index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./about.html">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./team.html">Our Team</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./news.html">News/Events</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./services.html">Court Case/Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./policy.html">Policy Document</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./blog.html">Blog/Legal HelpLine</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./contact.html">Contact Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./downloads.html">Download</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 </header>
