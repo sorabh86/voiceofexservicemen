@@ -1,0 +1,109 @@
+/* @import "tailwindcss"; */
+
+/* Custom styles for the Voice of Ex-Servicemen homepage */
+:root{
+  --royal-blue:#102a8c;
+  --royal-blue-dark:#081b63;
+  --orange:#f36b3b;
+  --orange-dark:#d9542d;
+}
+body{font-family:"Source Sans 3", system-ui, sans-serif; background:#fff;color:#17234d;}
+.hero .display-6,.brand-copy .fw-bold,h1,h2,h3,h4,h5,h6{font-family:"Oswald", Impact, sans-serif;}
+.utility-bar{background:#252525;min-height:60px;}
+.utility-bar .container{min-height:60px;}
+.utility-bar i{color:#fff;font-size:1rem;}
+.header-actions {background:var(--orange);height:60px}
+.header-actions a{display:flex;align-items:center;padding:0 1.2rem;background:var(--orange);color:#fff;text-decoration:none;font-weight:700;border-left:1px solid rgba(255,255,255,.35);}
+.header-actions a:last-child{background:#fff;color:#555;font-size:1.1rem;}
+.identity-bar{background:#fff;}
+.brand-mark{flex:0 0 112px;}
+.brand-mark img{display:block;object-fit:contain;}
+.brand-copy{line-height:1.3;text-transform:uppercase;color:#222860;}
+.brand-copy .fw-bold{font-size:clamp(1.2rem,2.5vw,2rem);}
+.brand-copy small{font-size:clamp(.78rem,1.3vw,1.05rem);}
+.visitor-panel{flex:0 0 175px;font-size:.78rem;line-height:2;border:1px solid #ddd;color:#333;}
+
+.language-select{border:1px solid #bbb;background:#fff;color:#333;font-size:.78rem;padding:.1rem .35rem;white-space:nowrap;}
+.social-links{display:flex;gap:1.5rem;color:#8790a0;font-size:1.1rem;padding-top:.2rem;}
+.main-nav{background:#222860;padding:0;}
+.main-nav .nav-link{color:#fff;padding:.75rem .65rem;font-size:.85rem;white-space:nowrap;}
+.main-nav .nav-link:hover,.main-nav .nav-link:focus{background:rgba(255,255,255,.12);color:#fff;}
+.hero{width:calc(100% - 3rem);overflow:hidden;background-color:#53612B;background-size:100% 100%;}
+.hero-copy{position:relative;z-index:1;}
+.hero .display-6{color:#fff;max-width:740px;font-family:"Arial Narrow","Roboto Condensed",Impact,sans-serif;font-size:clamp(2.3rem,3.6vw,3.4rem);font-weight:900;line-height:.98;text-transform:uppercase;letter-spacing:.02em;text-shadow:0 2px 2px rgba(0,0,0,.18);}
+.hero .lead{max-width:520px;font-size:clamp(1rem,1.6vw,1.35rem);line-height:1.15;color:#fff;}
+.hero .btn{font-weight:800;text-transform:uppercase;padding:.65rem 1.45rem;font-size:.9rem;}
+.about-hero{background:var(--royal-blue);color:#fff;}
+.about-hero h1{max-width:760px;font-size:clamp(2.5rem,5vw,4.5rem);line-height:1;text-transform:uppercase;}
+.about-hero .lead{max-width:700px;}
+.about-values{background:#f2f4fa;}
+.about-values h2{color:var(--royal-blue);}
+.about-values article{height:100%;background:#fff;border-top:4px solid var(--orange);padding:1.5rem;}
+.about-values article i{color:var(--orange);font-size:1.8rem;margin-bottom:1rem;}
+.about-values article h3{color:var(--royal-blue);}
+.about-fact-panel{display:flex;flex-direction:column;gap:.75rem;background:var(--orange);color:#fff;padding:2.5rem;border-radius:.25rem;}
+.about-fact-panel span:first-child{font-size:2.5rem;}
+.about-content{color:#24314a;}
+.member-card{height:100%;overflow:hidden;border-radius:.35rem;background:#fff;box-shadow:0 .35rem 1rem rgba(22,35,65,.18);display:flex;flex-direction:column;text-align:center;}
+.member-card img{width:100%;height:300px;object-fit:cover;}
+.member-card-body{padding:1.25rem .85rem;flex:1;}
+.member-card-body h3{font-family:"Source Sans 3",sans-serif;font-size:1rem;line-height:1.2;margin-bottom:1rem;color:#111;font-weight:700;}
+.member-card-body p{font-size:.82rem;line-height:1.45;margin:0;color:#374151;}
+.member-donation{background:#fa5b43;color:#fff;padding:.9rem .5rem;font-size:.8rem;}
+.btn-success{background-color:var(--orange);border-color:var(--orange);}
+.btn-success:hover,.btn-success:focus{background-color:var(--orange-dark);border-color:var(--orange-dark);}
+.bg-success{background-color:var(--orange)!important;}
+.text-success{color:var(--orange-dark)!important;}
+.btn-outline-success{color:#222860;border-color:#222860;}
+.btn-outline-success:hover,.btn-outline-success:focus{color:#fff;background-color:#222860;border-color:#222860;}
+.program-card{border:1px solid #ddd; }
+.program-card .icon{width:64px;height:64px;display:inline-flex;align-items:center;justify-content:center;font-size:28px}
+.program-card:hover{transform:translateY(-6px);box-shadow:0 10px 20px rgba(0,0,0,0.08);transition:all .25s ease}
+.icon-large{width:72px;height:72px;font-size:30px}
+.card img{object-fit:cover;height:200px}
+.site-footer{background:#202020;color:#fff;}
+.footer-main{min-height:360px;}
+.footer-column{border-right:1px solid rgba(255,255,255,.08);padding-right:2rem;}
+.footer-column:last-child{border-right:0;}
+.footer-column h2{font-size:1.65rem;text-transform:uppercase;color:#fff;margin-bottom:2rem;}
+.footer-address{max-width:300px;line-height:1.45;margin-bottom:4rem;}
+.footer-contact{font-size:.86rem;}
+.footer-contact div{display:flex;gap:1.25rem;margin-bottom:.7rem;}
+.footer-contact dt{color:var(--orange);min-width:55px;font-weight:600;}
+.footer-contact dd{margin:0;}
+.footer-links{list-style:none;padding-left:0;margin:0;}
+.footer-links li{margin-bottom:.3rem;}
+.footer-links li::before{content:"> ";}
+.footer-links a{color:#fff;text-decoration:underline;}
+.newsletter-form{max-width:340px;margin:4rem 0 1.5rem;}
+.newsletter-form input{min-width:0;flex:1;border:0;background:#333;color:#fff;padding:.7rem 1rem;}
+.newsletter-form input::placeholder{color:#aaa;}
+.newsletter-form button{border:0;background:var(--orange);color:#fff;text-transform:uppercase;font-weight:700;padding:0 1.25rem;}
+.footer-column h3{font-size:1.1rem;margin-bottom:1.25rem;}
+.footer-social{display:flex;gap:1.5rem;}
+.footer-social a{color:#aab0bb;font-size:1.25rem;}
+.footer-bottom{background:#050505;padding:1rem 0;color:#fff;}
+.stretched-link{cursor:pointer}
+
+@media (max-width:767px){
+  .utility-bar{padding:.55rem 0;}
+  .utility-bar .container{min-height:0;}
+  .utility-bar .container>div:first-child{font-size:.7rem;}
+  .header-actions{width:100%;}
+  .header-actions a{flex:1;justify-content:center;padding:.4rem .5rem;font-size:.72rem;}
+  .identity-bar .container{align-items:flex-start!important;padding-top:1rem;padding-bottom:1rem;}
+  .brand-mark{flex-basis:72px;}
+  .brand-mark img{width:72px;height:72px;}
+  .brand-copy .fw-bold{font-size:.95rem;}
+  .brand-copy small{font-size:.58rem;}
+  .visitor-panel{display:none;}
+  .main-nav .nav-link{padding:.7rem 0;}
+  .hero .display-6{font-size:clamp(1.5rem,10vw,1.2rem);}
+  .hero .lead{font-size:1rem;}
+  .hero-copy{margin-top: 0 !important; background: rgba(0, 0, 0, 0.4); padding: 1rem;}
+  .hero-copy h1 {font-size:clamp(1.2rem,6vw,1.5rem); }
+  .footer-column{border-right:0;border-bottom:1px solid rgba(255,255,255,.1);padding:0 0 1.5rem;}
+  .footer-column h2{margin-bottom:1rem;}
+  .footer-address{margin-bottom:1.5rem;}
+  .newsletter-form{margin-top:1.5rem;}
+}

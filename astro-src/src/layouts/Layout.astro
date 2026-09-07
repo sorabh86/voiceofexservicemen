@@ -1,0 +1,39 @@
+---
+import "../styles/global.css"; 
+
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import seoDataRaw from "../data/siteMetadata.json";
+
+const seoData = seoDataRaw as Record<string, any>;
+
+const { pageKey } = Astro.props;
+const seo = seoData[pageKey] || {
+	title: "Voice of Ex-Servicemen",
+	description: "Official portal",
+	keywords: "veterans",
+};
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<!-- Dynamic Meta Tags Generated from JSON -->
+		<title>{seo.title}</title>
+		<meta name="description" content={seo.description} />
+		<meta name="keywords" content={seo.keywords} />
+
+		<link rel="stylesheet" href="css/vendor/fonts.css" />
+		<link href="css/vendor/bootstrap.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/vendor/fontawesome/all.min.css" />
+	</head>
+	<body class="flex flex-col min-h-screen bg-slate-50">
+		<slot />
+	</body>
+
+	<script is:inline src="css/vendor/bootstrap.bundle.min.js"></script>
+</html>
+

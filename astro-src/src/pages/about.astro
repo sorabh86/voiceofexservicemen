@@ -1,0 +1,110 @@
+---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import MemberItem from "../components/Sections/MemberItem.astro";
+import Layout from "../layouts/Layout.astro";
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+
+const members = [
+	{
+		name: "Satish Chandra Mahto",
+		role: "Entrepreneur",
+		amount: 10000,
+		url: "assets/members/SatishChandraMahto.jpg",
+	},
+	{
+		name: "Shambhu Kumar",
+		role: "Entrepreneur",
+		amount: 10000,
+		url: "assets/members/ShambhuKumar.jpg",
+	},
+	{
+		name: "Veteran Dr KRK Rao",
+		role: "MA, MBA, LLM, Ph.D.(HRM)",
+		amount: 15001,
+		url: "assets/members/DrKRKRao.jpg",
+	},
+	{
+		name: "ISHWAR DATTA",
+		role: '',
+		amount: 20000,
+		url: "assets/members/ishwarDatta.jpg",
+	},
+];
+---
+
+<Layout pageKey="about">
+	<Header />
+	<main class="about-content">
+		<section class="container py-4">
+			<h1>About Us</h1>
+			<p>
+				<span class="fw-bold">Voice of Ex-Servicemen</span> is a nationwide movement
+				representing the collective voice of <span class="fw-bold"
+					>Junior Commissioned Officers (JCOs), Non-Commissioned Officers
+					(NCOs), and Other Ranks (ORs) of the Indian Armed Forces</span
+				>. The movement was started in <span class="fw-bold">March 2015</span>
+				with the aim of raising awareness about the rights, welfare, and legitimate
+				concerns of Ex-Servicemen.
+			</p>
+
+			<p>
+				We believe that those who have dedicated the prime years of their lives
+				to serving the nation deserve <span class="fw-bold"
+					>respect, fairness, and a dignified life after retirement</span
+				>. Through awareness, representation, and collective action, we strive
+				to ensure that the rights and legitimate entitlements of Ex-Servicemen
+				are recognised and protected.
+			</p>
+
+			<h2>Aims &amp; Objectives</h2>
+			<ol>
+				<li>
+					<span class="fw-bold">Creating Awareness</span> - To create awareness among
+					Ex-Servicemen about their legal, constitutional, and other legitimate rights
+					and to work towards ending discrimination against them after retirement.
+				</li>
+				<li>
+					<p>
+						<span class="fw-bold">Securing Legitimate Entitlements</span> - To assist
+						and support Ex-Servicemen in obtaining their rightful dues, benefits,
+						pensions, and other legitimate entitlements.
+					</p>
+				</li>
+				<li>
+					<span class="fw-bold">Promoting Dignity and Welfare</span> - To work towards
+					enabling Ex-Servicemen and their families to live a secure, dignified, and
+					respectable life after their years of service to the nation.
+				</li>
+				<li>
+					<span class="fw-bold">Giving Ex-Servicemen a Collective Voice</span> - To
+					provide a common platform through which the genuine concerns and grievances
+					of Ex-Servicemen can be raised before the appropriate authorities and institutions.
+				</li>
+				<li>
+					<span class="fw-bold">Protecting the Interests of Veterans</span> - To work
+					collectively for the welfare, rights, and interests of Ex-Servicemen and
+					to advocate for fair and just treatment in matters affecting their post-retirement
+					lives.
+				</li>
+			</ol>
+
+			<p class="fw-bold">
+				Voice of Ex-Servicemen stands for awareness, justice, equality, and
+				dignity for those who have served the nation.
+			</p>
+		</section>
+		<section class="members-area container pb-5">
+			<div class="row g-4">
+			{
+				members.map((item) => (
+					<MemberItem name={item.name} role={item.role} amount={item.amount} url={item.url} />
+				))
+			}
+			</div>
+		</section>
+	</main>
+	<Footer />
+</Layout>

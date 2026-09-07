@@ -1,0 +1,96 @@
+---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import Layout from "../layouts/Layout.astro";
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+
+const teamMembers =[
+	{
+		name:"BIRBAHADUR SINGH, FOUNDER VOICE",
+		role:"General Secretory & National Coordinator",
+		email:"birbahadur@yahoo.com",
+		mobile:"9897468767",
+		url:"assets/members/BirbahadurSingh.jpg"
+	},
+	{
+		name:"B.K. Jha",
+		role:"Senior Vice President",
+		email:"",
+		mobile:"",
+		url:"assets/members/BKJha.jpg"
+	},
+	{
+		name:"Abhinash Kumar",
+		role:"Co-Founder Voice & Vice President",
+		email:"",
+		mobile:"",
+		url:"assets/members/AbhinashKumar.jpg"
+	},
+	{
+		name:"Rajeev Behal",
+		role:"Vice President and Legal Head",
+		email:"",
+		mobile:"",
+		url:"assets/members/rajeevBehal.jpg"
+	},
+	{
+		name:"Ram Singh",
+		role:"Vice President and Coordinator Rajasthan",
+		email:"",
+		mobile:"",
+		url:"assets/members/ramSingh.jpg"
+	},
+	{
+		name:"Shambhu Kumar",
+		role:"Treasurer and Coordinator",
+		email:"",
+		mobile:"",
+		url:"assets/members/ShambhuKumar.jpg"
+	},
+	{
+		name:"Chitranjan Singh",
+		role:"Secretory and Coordinator",
+		email:"",
+		mobile:"",
+		url:"assets/members/ChitranjanSingh.jpg"
+	},
+	{
+		name:"Kishor Balla",
+		role:"President Tilangana",
+		email:"",
+		mobile:"",
+		url:"assets/members/KishorBalla.jpg"
+	},
+	{
+		name:"J.S. Patial",
+		role:"President Himachal Pradesh",
+		email:"",
+		mobile:"",
+		url:"assets/members/jsPatial.jpg"
+	}
+]
+---
+
+<Layout>
+	<Header />
+	<main class="about-content">
+		<section class="container py-4">
+			<h1>Our Team</h1>
+			<div class="row">
+
+				{
+					teamMembers.map((item) => (
+						<div class="col-4 team-member">
+						<img class="w-100" src={item.url} alt={item.name} />
+						<h4>{item.name}</h4>
+						<p>{item.role}</p>
+					</div>
+				))
+			}
+			</div>
+		</section>
+	</main>
+	<Footer />
+</Layout>

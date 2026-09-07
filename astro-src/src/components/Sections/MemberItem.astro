@@ -1,0 +1,21 @@
+---
+const {name, role, amount, url} = Astro.props || {
+  name: "Default Name",
+  role: "Default Role",
+  amount: 10000,
+  url: "assets/members/default.jpg"
+};
+
+console.log(name);
+---
+
+<div class="col-sm-6 col-lg-3">
+  <article class="member-card">
+    <img src={url} alt={name + ' Image'} />
+    <div class="member-card-body">
+      <h3>{name} {role?',':''}<br />{role}</h3>
+      <p>Congratulations! for donation - from all members of society</p>
+    </div>
+    <div class="member-donation">Donated - Rs {amount}/-</div>
+  </article>
+</div>

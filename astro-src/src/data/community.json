@@ -1,0 +1,17 @@
+[
+  {
+    "title": "Peer Mentorship",
+    "description": "Connect with fellow veterans for guidance.",
+    "image": "assets/community1.jpg"
+  },
+  {
+    "title": "Counselling Services",
+    "description": "Professional mental health and career counselling.",
+    "image": "assets/community2.jpg"
+  },
+  {
+    "title": "Volunteer Opportunities",
+    "description": "Give back and stay engaged in meaningful work.",
+    "image": "assets/community3.jpg"
+  }
+]

@@ -1,0 +1,32 @@
+---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import HeroSection from "../components/Sections/HeroSection.astro";
+import ProgramSection from "../components/ProgramSection.astro";
+import NewsSection from "../components/NewsSection.astro";
+import CommunitySection from "../components/CommunitySection.astro";
+import TestimonialsSection from "../components/TestimonialsSection.astro";
+import ContactSection from "../components/ContactSection.astro";
+import JoinSection from "../components/JoinSection.astro";
+
+import Layout from "../layouts/Layout.astro";
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+---
+
+<Layout pageKey="home">
+	<Header />
+	<HeroSection />
+	<main class="mt-5">
+		<div class="container">
+			<ProgramSection />
+			<NewsSection />
+			<CommunitySection />
+			<TestimonialsSection />
+			<JoinSection />	
+			<ContactSection />
+		</div>
+	</main>
+	<Footer />
+</Layout>

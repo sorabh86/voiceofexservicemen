@@ -1,0 +1,28 @@
+{
+  "home": {
+    "title": "Welcome to Voice of Ex-Servicemen",
+    "description": "The official portal serving our community of ex-servicemen.",
+    "keywords": "veterans, ex-servicemen, community, portal"
+  },
+  "about": {
+    "title": "About Us | Voice of Ex-Servicemen",
+    "description": "Learn about our mission, vision, and the values we uphold.",
+    "keywords": "about us, mission, history, veterans"
+  },
+  "team": {
+    "title": "Our Team | Voice of Ex-Servicemen",
+    "description": "Meet the dedicated team behind our initiatives.",
+    "keywords": "team, staff, veterans, leadership"
+  },
+  "news": {
+    "title": "Latest News | Voice of Ex-Servicemen",
+    "description": "Stay updated with the latest news and events for ex-servicemen.",
+    "keywords": "news, updates, events, veterans"
+  },
+  "services": {
+    "title": "Services | Voice of Ex-Servicemen",
+    "description": "Explore the services we offer to support our community.",
+    "keywords": "services, support, veterans, resources"
+  }
+
+}
