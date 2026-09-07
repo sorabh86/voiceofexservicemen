@@ -79,16 +79,21 @@ const teamMembers =[
 		<section class="container py-4">
 			<h1>Our Team</h1>
 			<div class="row">
-
-				{
+			{
 					teamMembers.map((item) => (
-						<div class="col-4 team-member">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 team-member">
 						<img class="w-100" src={item.url} alt={item.name} />
 						<h4>{item.name}</h4>
 						<p>{item.role}</p>
 					</div>
 				))
 			}
+				<div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 team-member">
+					<img class="w-100" src="assets/members/default.jpg" alt="You" />
+					<h4>You Could be Next</h4>
+					<p>Join Our Team, volunteer!</p>
+					<div class="btn btn-success w-100">Join Team</div>
+				</div>
 			</div>
 		</section>
 	</main>
