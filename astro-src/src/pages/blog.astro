@@ -4,12 +4,18 @@ import Header from '../components/Header.astro';
 import Layout from '../layouts/Layout.astro';
 import NewsListing from '../components/NewsListing.astro';
 import newsData from '../data/newsData.json';
+
+
 ---
 
 <Layout pageKey="news">
 	<Header />
 	<main class="news-page">
-		<NewsListing posts={newsData} currentPage={1} pageCount={Math.ceil(newsData.length / 2)} />
+		
+		<section class="container py-4 py-lg-5">
+			<NewsListing posts={newsData} currentPage={1} pageCount={Math.ceil(newsData.length / 2)} />
+		</section>
+		
 	</main>
 	<Footer />
 </Layout>

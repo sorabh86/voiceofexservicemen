@@ -9,7 +9,10 @@ import newsData from '../data/newsData.json';
 <Layout pageKey="news">
 	<Header />
 	<main class="news-page">
+		
+		<section class="container py-4 py-lg-5">
 		<NewsListing posts={newsData} currentPage={1} pageCount={Math.ceil(newsData.length / 2)} />
+		</section>
 	</main>
 	<Footer />
 </Layout>

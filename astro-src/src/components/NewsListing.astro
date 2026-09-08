@@ -1,109 +1,246 @@
 ---
 interface NewsPost {
-	title: string;
-	description: string;
-	date: string;
-	category: string;
-	image?: string;
+  title: string;
+  description: string;
+  date: string;
+  category: string;
+  image?: string;
 }
 
 interface Props {
-	posts: NewsPost[];
-	currentPage: number;
-	pageCount: number;
+  posts: NewsPost[];
+  currentPage: number;
+  pageCount: number;
 }
 
 const { posts, currentPage, pageCount } = Astro.props;
-const pageSize = 2;
-const pagePosts = posts.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 const archive = [...new Set(posts.map((post) => {
 	const date = new Date(`${post.date}T00:00:00`);
 	return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 }))];
+const pageSize = 2;
+const pagePosts = posts.slice(
+  (currentPage - 1) * pageSize,
+  currentPage * pageSize,
+);
 
-const pageUrl = (page: number) => page === 1 ? '/news/' : `/news/${page}/`;
+const pageUrl = (page: number) => (page === 1 ? "/news/" : `/news/${page}/`);
 ---
 
-<section class="news-listing container py-4 py-lg-5">
-	<div class="row g-4 g-xl-5 align-items-start">
-		<div class="col-lg-8">
-			<h1 class="news-title">News/Events</h1>
+<div class="row g-4 g-xl-5 align-items-start">
+  <div class="col-lg-8">
+    <h1 class="news-title">News/Events</h1>
 
-			<div class="news-posts">
-				{pagePosts.map((post) => (
-					<article class="news-post">
-						<h2>{post.title}</h2>
-						<p class="news-meta">
-							<time datetime={post.date}>{new Date(`${post.date}T00:00:00`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time>
-							<span aria-hidden="true"> | </span>
-							<a href="#comments">No Comments</a>
-							<span aria-hidden="true"> | </span>
-							<span>Categories: <a href="#category">{post.category}</a>, <a href="#post">Post</a></span>
-						</p>
-						<div class="news-post-body">
-							{post.image && <img src={post.image} alt="" loading="lazy" />}
-							<p>{post.description}</p>
-						</div>
-						<a class="btn btn-dark btn-sm news-read-more" href="#post">Read More &gt;</a>
-					</article>
-				))}
-			</div>
+    <div class="news-posts">
+      {
+        pagePosts.map((post) => (
+          <article class="news-post">
+            <h2>{post.title}</h2>
+            <p class="news-meta">
+              <time datetime={post.date}>
+                {new Date(`${post.date}T00:00:00`).toLocaleDateString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                })}
+              </time>
+              <span aria-hidden="true"> | </span>
+              <a href="#comments">No Comments</a>
+              <span aria-hidden="true"> | </span>
+              <span>
+                Categories: <a href="#category">{post.category}</a>,{" "}
+                <a href="#post">Post</a>
+              </span>
+            </p>
+            <div class="news-post-body">
+              {post.image && <img src={post.image} alt="" loading="lazy" />}
+              <p>{post.description}</p>
+            </div>
+            <a class="btn btn-dark btn-sm news-read-more" href="#post">
+              Read More &gt;
+            </a>
+          </article>
+        ))
+      }
+    </div>
 
-			{pageCount > 1 && (
-				<nav class="mt-4" aria-label="News pages">
-					<ul class="pagination mb-0">
-						<li class={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-							<a class="page-link" href={currentPage === 1 ? undefined : pageUrl(currentPage - 1)} aria-label="Previous page">&laquo;</a>
-						</li>
-						{Array.from({ length: pageCount }, (_, index) => index + 1).map((page) => (
-							<li class={`page-item ${page === currentPage ? 'active' : ''}`} aria-current={page === currentPage ? 'page' : undefined}>
-								<a class="page-link" href={pageUrl(page)}>{page}</a>
-							</li>
-						))}
-						<li class={`page-item ${currentPage === pageCount ? 'disabled' : ''}`}>
-							<a class="page-link" href={currentPage === pageCount ? undefined : pageUrl(currentPage + 1)} aria-label="Next page">&raquo;</a>
-						</li>
-					</ul>
-				</nav>
-			)}
-		</div>
+    {
+      pageCount > 1 && (
+        <nav class="mt-4" aria-label="News pages">
+          <ul class="pagination mb-0">
+            <li class={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+              <a
+                class="page-link"
+                href={currentPage === 1 ? undefined : pageUrl(currentPage - 1)}
+                aria-label="Previous page"
+              >
+                &laquo;
+              </a>
+            </li>
+            {Array.from({ length: pageCount }, (_, index) => index + 1).map(
+              (page) => (
+                <li
+                  class={`page-item ${page === currentPage ? "active" : ""}`}
+                  aria-current={page === currentPage ? "page" : undefined}
+                >
+                  <a class="page-link" href={pageUrl(page)}>
+                    {page}
+                  </a>
+                </li>
+              ),
+            )}
+            <li
+              class={`page-item ${currentPage === pageCount ? "disabled" : ""}`}
+            >
+              <a
+                class="page-link"
+                href={
+                  currentPage === pageCount
+                    ? undefined
+                    : pageUrl(currentPage + 1)
+                }
+                aria-label="Next page"
+              >
+                &raquo;
+              </a>
+            </li>
+          </ul>
+        </nav>
+      )
+    }
+  </div>
 
-		<aside class="col-lg-4">
-			<div class="news-archive">
-				<h2>Monthwise</h2>
-				<ul>
-					{archive.map((month) => (
-						<li><a href={`#${month.replace(' ', '-').toLowerCase()}`}><span aria-hidden="true">›</span>{month}</a></li>
-					))}
-				</ul>
-			</div>
-		</aside>
-	</div>
-</section>
+  <aside class="col-lg-4">
+    <div class="news-archive">
+      <h2>Monthwise</h2>
+      <ul>
+        {
+          archive.map((month) => (
+            <li>
+              <a href={`#${month.replace(" ", "-").toLowerCase()}`}>
+                <span aria-hidden="true">›</span>
+                {month}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </aside>
 
-<style>
-	.news-listing { color: #26394d; }
-	.news-title { border-bottom: 1px solid #e3e3e3; color: #1d2d3d; font-family: "Source Sans 3", sans-serif; font-size: clamp(2rem, 4vw, 2.65rem); font-weight: 400; margin: 0; padding-bottom: .6rem; }
-	.news-post { border-bottom: 1px solid #e5e5e5; padding: 1rem 0 1.15rem; }
-	.news-post h2 { color: #24384b; font-family: "Source Sans 3", sans-serif; font-size: clamp(1.3rem, 2.2vw, 1.65rem); font-weight: 400; line-height: 1.12; margin: 0 0 .55rem; }
-	.news-meta { color: #8c8c8c; font-size: .8rem; margin-bottom: .9rem; }
-	.news-meta a { color: #27384a; text-decoration: none; }
-	.news-post-body { align-items: flex-start; display: flex; gap: .85rem; min-height: 2rem; }
-	.news-post-body img { height: 155px; object-fit: cover; width: 220px; }
-	.news-post-body p { color: #45505b; font-size: .9rem; margin: 0; }
-	.news-read-more { border-radius: 0; font-size: .75rem; font-weight: 700; margin-top: .9rem; padding: .5rem .85rem; }
-	.news-archive { border: 1px solid #f0f0f0; }
-	.news-archive h2 { background: var(--orange); color: #fff; font-family: "Source Sans 3", sans-serif; font-size: 1.4rem; font-weight: 600; margin: 0; padding: .55rem .85rem; }
-	.news-archive ul { list-style: none; margin: 0; padding: .9rem 1rem; }
-	.news-archive li { border-bottom: 1px dashed #999; }
-	.news-archive li:last-child { border-bottom: 0; }
-	.news-archive a { color: #6f6f6f; display: flex; gap: .8rem; padding: .55rem 0; text-decoration: none; }
-	.news-archive a:hover, .news-archive a:focus { color: var(--orange-dark); }
-	.news-archive a span { color: #333; font-weight: 700; }
-	.pagination .page-link { color: var(--royal-blue); }
-	.pagination .active .page-link { background-color: var(--orange); border-color: var(--orange); color: #fff; }
-	@media (max-width: 575px) {
-		.news-post-body { display: block; }
-		.news-post-body img { height: auto; margin-bottom: .75rem; max-width: 100%; width: 220px; }
-	}
-</style>
+  <style>
+    .news-listing {
+      color: #26394d;
+    }
+    .news-title {
+      border-bottom: 1px solid #e3e3e3;
+      color: #1d2d3d;
+      font-family: "Source Sans 3", sans-serif;
+      font-size: clamp(2rem, 4vw, 2.65rem);
+      font-weight: 400;
+      margin: 0;
+      padding-bottom: 0.6rem;
+    }
+    .news-post {
+      border-bottom: 1px solid #e5e5e5;
+      padding: 1rem 0 1.15rem;
+    }
+    .news-post h2 {
+      color: #24384b;
+      font-family: "Source Sans 3", sans-serif;
+      font-size: clamp(1.3rem, 2.2vw, 1.65rem);
+      font-weight: 400;
+      line-height: 1.12;
+      margin: 0 0 0.55rem;
+    }
+    .news-meta {
+      color: #8c8c8c;
+      font-size: 0.8rem;
+      margin-bottom: 0.9rem;
+    }
+    .news-meta a {
+      color: #27384a;
+      text-decoration: none;
+    }
+    .news-post-body {
+      align-items: flex-start;
+      display: flex;
+      gap: 0.85rem;
+      min-height: 2rem;
+    }
+    .news-post-body img {
+      height: 155px;
+      object-fit: cover;
+      width: 220px;
+    }
+    .news-post-body p {
+      color: #45505b;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+    .news-read-more {
+      border-radius: 0;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-top: 0.9rem;
+      padding: 0.5rem 0.85rem;
+    }
+    .news-archive {
+      border: 1px solid #f0f0f0;
+    }
+    .news-archive h2 {
+      background: var(--orange);
+      color: #fff;
+      font-family: "Source Sans 3", sans-serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin: 0;
+      padding: 0.55rem 0.85rem;
+    }
+    .news-archive ul {
+      list-style: none;
+      margin: 0;
+      padding: 0.9rem 1rem;
+    }
+    .news-archive li {
+      border-bottom: 1px dashed #999;
+    }
+    .news-archive li:last-child {
+      border-bottom: 0;
+    }
+    .news-archive a {
+      color: #6f6f6f;
+      display: flex;
+      gap: 0.8rem;
+      padding: 0.55rem 0;
+      text-decoration: none;
+    }
+    .news-archive a:hover,
+    .news-archive a:focus {
+      color: var(--orange-dark);
+    }
+    .news-archive a span {
+      color: #333;
+      font-weight: 700;
+    }
+    .pagination .page-link {
+      color: var(--royal-blue);
+    }
+    .pagination .active .page-link {
+      background-color: var(--orange);
+      border-color: var(--orange);
+      color: #fff;
+    }
+    @media (max-width: 575px) {
+      .news-post-body {
+        display: block;
+      }
+      .news-post-body img {
+        height: auto;
+        margin-bottom: 0.75rem;
+        max-width: 100%;
+        width: 220px;
+      }
+    }
+  </style>
+</div>
