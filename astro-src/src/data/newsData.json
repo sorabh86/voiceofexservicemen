@@ -4,20 +4,20 @@
     "description": "The latest update on the MSP hearing and the government's response.",
     "date": "2024-02-10",
     "category": "News/Events",
-    "image": "/assets/news1.jpg"
+    "image": "assets/news1.jpg"
   },
   {
     "title": "Delaying pensionary benefits by PCDA to Widow of Armed force Tribunal",
     "description": "An update on pensionary benefits and support for service families.",
     "date": "2024-02-05",
     "category": "News/Events",
-    "image": "/assets/news2.jpg"
+    "image": "assets/news2.jpg"
   },
   {
     "title": "Unity is strength : Sevadari system stopped by govt , sustainable development in armed forces",
     "description": "A note on the Sevadari system and sustainable development in the armed forces.",
     "date": "2024-01-28",
     "category": "News/Events",
-    "image": "/assets/news3.jpg"
+    "image": "assets/news3.jpg"
   }
 ]
