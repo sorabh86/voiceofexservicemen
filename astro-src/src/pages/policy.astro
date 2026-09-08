@@ -1,0 +1,119 @@
+---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import PolicyDocument from "../components/Sections/PolicyDocument.astro";
+import PrivacyDocument from "../components/Sections/PrivacyDocument.astro";
+import RefundDocument from "../components/Sections/RefundDocument.astro";
+import TermsDocument from "../components/Sections/TermsDocument.astro";
+import Layout from "../layouts/Layout.astro";
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+---
+
+<Layout>
+    <Header />
+    <main class="policy-content">
+        <div style="height:350px;background-image:url(assets/donate-banner.jpg);background-repeat: no-repeat;background-size: cover;background-position: center;"></div>
+        <div class="accordion container" id="myProjectAccordion">
+            <!-- Item 1 -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button
+                        class="accordion-button"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne"
+                        aria-expanded="true"
+                        aria-controls="collapseOne"
+                    >
+                        Accordion Item #1
+                    </button>
+                </h2>
+                <div
+                    id="collapseOne"
+                    class="accordion-collapse collapse show"
+                    data-bs-parent="#myProjectAccordion"
+                >
+                    <div class="accordion-body">
+                        <PolicyDocument />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseTwo"
+                        aria-expanded="false"
+                        aria-controls="collapseTwo"
+                    >
+                        Accordion Item #2
+                    </button>
+                </h2>
+                <div
+                    id="collapseTwo"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#myProjectAccordion"
+                >
+                    <div class="accordion-body">
+                        <RefundDocument />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseThree"
+                        aria-expanded="false"
+                        aria-controls="collapseThree"
+                    >
+                        Accordion Item #3
+                    </button>
+                </h2>
+                <div
+                    id="collapseThree"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#myProjectAccordion"
+                >
+                    <div class="accordion-body">
+                        <PrivacyDocument />
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseThree"
+                        aria-expanded="false"
+                        aria-controls="collapseThree"
+                    >
+                        Accordion Item #3
+                    </button>
+                </h2>
+                <div
+                    id="collapseThree"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#myProjectAccordion"
+                >
+                    <div class="accordion-body">
+                        <TermsDocument />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <Footer />
+</Layout>
