@@ -1,0 +1,105 @@
+---
+const {
+  title = "MEMBER MANAGEMENT & ENGAGEMENT",
+
+  memberImage = "membership/memberbanner.jpg",
+  joinImage = "membership/joinusbanner.jpg",
+
+  memberTitle = "MEMBER PORTAL",
+  memberText = "Manage membership, access resources, and update your profile.",
+
+  joinTitle = "JOIN US",
+  joinText = "Become an active member, volunteer, and get involved in local actions.",
+
+  loginUrl = "login/",
+  signupUrl = "membership/",
+  joinUrl = "join-us/",
+} = Astro.props;
+---
+
+<section class="member-engagement pt-4 py-lg-5">
+  <div class="container">
+
+    <!-- Section Heading -->
+    <div class="text-center mb-4">
+      <h2 class="member-heading mb-0">
+        {title}
+      </h2>
+    </div>
+
+    <!-- Cards -->
+    <div class="row g-4 justify-content-center">
+
+      <!-- Member Portal -->
+      <div class="col-12 col-md-6">
+        <article class="engagement-card">
+
+          <div class="engagement-image">
+            <img class="w-100 position-absolute top-0 start-0"
+              src={memberImage}
+              alt="Voice of Ex-Servicemen member portal"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="engagement-content">
+            <h3>{memberTitle}</h3>
+
+            <p> {memberText} </p>
+
+            <div class="engagement-actions d-flex g-4">
+              <a href={loginUrl} class="btn btn-dark btn-sm" > LOGIN </a>
+              <a href={signupUrl} class="btn btn-outline-dark btn-sm" > NEW MEMBER SIGN UP </a>
+            </div>
+          </div>
+
+        </article>
+      </div>
+
+
+      <!-- Join Us -->
+      <div class="col-12 col-md-6">
+        <article class="engagement-card">
+
+          <div class="engagement-image">
+            <img class="w-100 position-absolute top-0 start-0"
+              src={joinImage}
+              alt="Join Voice of Ex-Servicemen"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="engagement-content">
+            <h3>{joinTitle}</h3>
+
+            <p> {joinText} </p>
+
+            <div class="engagement-actions">
+              <a href={joinUrl} class="btn btn-dark btn-sm" > JOIN US </a>
+            </div>
+          </div>
+
+        </article>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .engagement-card {
+    height: 400px;
+    border-radius: 0.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .engagement-content, .engagement-content {
+    background-color: rgba(255, 255, 255, 0.6);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+  }
+</style>
+
