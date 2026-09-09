@@ -1,0 +1,39 @@
+---
+const items = [
+  {
+    title: "1. Rally",
+    image: "action/action1.jpg",
+  },
+  {
+    title: "2. Peaceful Protest March",
+    image: "action/action2.jpg",
+  },
+  {
+    title: "3. Advocacy & Engagement",
+    image: "action/action3.jpg",
+  },
+  {
+    title: "4. Community Workshop",
+    image: "action/action4.jpg",
+  },
+];
+---
+
+<div class="row my-4 g-4">
+  <div class="col-12">
+    <h2>OUR IMPACT IN ACTION</h2>
+  </div>
+
+  {
+    items.map((i) => (
+      <div class="col-6 col-sm-12 col-md-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <img src={i.image} class="w-100 round" alt={i.title + " Image"} />
+            <h4>{i.title}</h4>
+          </div>
+        </div>
+      </div>
+    ))
+  }
+</div>
