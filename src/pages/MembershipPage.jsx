@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PageBanner from '../components/PageBanner.jsx';
 import { firebaseConfigured, submitMembershipApplication } from '../firebase.js';
+import { emailLink, phoneLink, siteInfo } from '../data/siteInfo.js';
 
 const membershipBenefits = [
   {
@@ -66,7 +67,7 @@ export default function MembershipPage() {
       console.error('Membership application submission failed:', error);
       setSubmissionState({
         type: 'error',
-        message: 'We could not submit your application. Please try again later or email info@voiceofexservicemen.in.'
+        message: `We could not submit your application. Please try again later or email ${siteInfo.email}.`
       });
     } finally {
       setIsSubmitting(false);
@@ -98,7 +99,7 @@ export default function MembershipPage() {
             <div className="membership-firebase-notice" role="status">
               <i className="fa-solid fa-circle-info" aria-hidden="true"></i>
               <span>
-                Applications are not being accepted online yet. Please <a href="mailto:info@voiceofexservicemen.in?subject=Membership%20enquiry">email the Society</a> while online applications are being set up.
+                Applications are not being accepted online yet. Please <a href={emailLink('Membership enquiry')}>email the Society</a> while online applications are being set up.
               </span>
             </div>
           )}
@@ -185,10 +186,10 @@ export default function MembershipPage() {
             <p>Contact the Society to discuss membership, the application process, and any applicable requirements. We’ll help direct your enquiry to the right place.</p>
           </div>
           <div className="membership-contact-actions">
-            <a href="mailto:info@voiceofexservicemen.in?subject=Membership%20enquiry" className="btn btn-light">Email the Society</a>
-            <a href="tel:9897468767" className="btn btn-outline-light">
+            <a href={emailLink('Membership enquiry')} className="btn btn-light">Email the Society</a>
+            <a href={phoneLink} className="btn btn-outline-light">
               <i className="fa-solid fa-phone me-2" aria-hidden="true"></i>
-              9897468767
+              {siteInfo.phone}
             </a>
           </div>
         </section>

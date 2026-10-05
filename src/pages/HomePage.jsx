@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import assetUrl from '../utils/assetUrl.js';
 import LocationMap from '../components/LocationMap.jsx';
+import { emailLink } from '../data/siteInfo.js';
 
 const programs = [
   { icon: 'fa-kit-medical', title: 'Medical Assistance', text: 'Support for treatment and medical emergencies.' },
@@ -204,7 +205,7 @@ function JoinSection() {
         </div>
         <div className="col-lg-6">
           <div className="card p-3">
-            <form action="mailto:info@voiceofexservicemen.in" method="post" encType="text/plain">
+            <form action={emailLink()} method="post" encType="text/plain">
               <div className="mb-2">
                 <label className="form-label small" htmlFor="join-name">Name</label>
                 <input id="join-name" name="name" className="form-control" placeholder="Your name" required />
@@ -238,7 +239,7 @@ function ContactSection() {
       <div className="row g-4">
         <div className="col-md-6">
           <div className="card p-3">
-            <form action="mailto:info@voiceofexservicemen.in" method="post" encType="text/plain">
+            <form action={emailLink()} method="post" encType="text/plain">
               <div className="mb-2">
                 <label className="visually-hidden" htmlFor="home-contact-name">Name</label>
                 <input id="home-contact-name" name="name" className="form-control" placeholder="Name" required />

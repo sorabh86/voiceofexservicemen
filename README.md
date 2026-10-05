@@ -2,6 +2,8 @@
 
 The website is a React single-page application built with Vite and React Router. All app source and npm configuration live at the repository root; static images and vendor files are in `public/`.
 
+Shared organisation details, including the contact email, phone number, and office address, are maintained in [`src/data/siteInfo.js`](./src/data/siteInfo.js). Update the values there to change them consistently across the site.
+
 Navigation uses clean browser routes. When deployed to GitHub Pages, the app is available under `/voiceofexservicemen/`, with pages such as `/voiceofexservicemen/policy` and `/voiceofexservicemen/news`. The GitHub Pages `404.html` fallback preserves direct links and refreshes on nested routes.
 
 ## Development

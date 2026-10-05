@@ -1,4 +1,5 @@
 import PageBanner from '../components/PageBanner.jsx';
+import { emailLink, siteInfo } from '../data/siteInfo.js';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -12,7 +13,7 @@ const policies = [
       ['Membership and donations', 'Any donation shown on the application is optional, separate from the membership decision, and is not a membership fee. Submitting an intended donation amount does not make a payment; donations must be completed through a separately confirmed payment method.'],
       ['Conduct and participation', 'Members are expected to engage respectfully and lawfully with the Society, its representatives, and other members, and to follow applicable Society rules and decisions communicated to them.'],
       ['Privacy and communications', 'Information submitted with an application is used to review and respond to the membership enquiry in accordance with the Privacy Policy. Applicants may contact the Society to ask about their information or application.'],
-      ['Changes and contact', 'The Society may update these terms and will publish the current version on this page. Questions about membership can be sent to info@voiceofexservicemen.in or raised by calling 9897468767.']
+      ['Changes and contact', `The Society may update these terms and will publish the current version on this page. Questions about membership can be sent to ${siteInfo.email} or raised by calling ${siteInfo.phone}.`]
     ]
   },
   {
@@ -39,7 +40,7 @@ const policies = [
       ['Information we collect', 'We may receive information you choose to provide, such as your name, email address, telephone number, message, or donation details. Technical information may also be processed to operate and protect the website.'],
       ['How information is used', 'Information is used to respond to enquiries, administer membership or donations, provide requested assistance, and maintain the security and operation of the website.'],
       ['Sharing and security', 'Information is not sold. It may be shared with service providers who help operate the website or process payments, or where required by law. Reasonable safeguards are used, but internet transmission cannot be guaranteed to be completely secure.'],
-      ['Retention and contact', 'Information is kept only as needed for the purposes described or as required by law. To ask about information you provided, contact info@voiceofexservicemen.in.']
+      ['Retention and contact', `Information is kept only as needed for the purposes described or as required by law. To ask about information you provided, contact ${siteInfo.email}.`]
     ]
   },
   {
@@ -48,7 +49,7 @@ const policies = [
       ['Website use', 'This website provides general information about the society and its activities. Use it lawfully and do not attempt to disrupt, damage, or gain unauthorised access to the site or its services.'],
       ['Information and assistance', 'Website content is provided for general information and is not a substitute for professional legal, financial, or other advice. Contact the society about an individual matter before relying on information for a decision.'],
       ['External websites', 'Links to third-party websites are provided for convenience. The society does not control those websites and is not responsible for their content or privacy practices.'],
-      ['Changes and contact', 'Website content and these terms may be updated. Continued use of the site after an update means you accept the revised terms. Questions can be sent to info@voiceofexservicemen.in.']
+      ['Changes and contact', `Website content and these terms may be updated. Continued use of the site after an update means you accept the revised terms. Questions can be sent to ${siteInfo.email}.`]
     ]
   }
 ];
@@ -88,7 +89,7 @@ export default function PolicyPage() {
                     <p>{content}</p>
                   </section>
                 ))}
-                <p><strong>Contact:</strong> <a href="mailto:info@voiceofexservicemen.in">info@voiceofexservicemen.in</a></p>
+                <p><strong>Contact:</strong> <a href={emailLink()}>{siteInfo.email}</a></p>
               </div>
             </details>
           ))}

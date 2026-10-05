@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PageBanner from '../components/PageBanner.jsx';
 import assetUrl from '../utils/assetUrl.js';
+import { emailLink, phoneLink, siteInfo } from '../data/siteInfo.js';
 
 const payuInitiateUrl = import.meta.env.VITE_PAYU_INITIATE_URL?.trim();
 
@@ -127,10 +128,10 @@ export default function DonationPage() {
             <h2>Donate safely</h2>
             <p>For your security, confirm payment details directly with the Society. Never share your UPI PIN, card security code, banking password, or one-time password with anyone.</p>
             <p>Donations are voluntary. Please review the <Link to="/policy">Donation and Refund Policies</Link> before contributing.</p>
-            <a href="tel:9897468767" className="donation-phone">
+            <a href={phoneLink} className="donation-phone">
               <i className="fa-solid fa-phone" aria-hidden="true"></i>
               <span>Call the Society</span>
-              <strong>9897468767</strong>
+              <strong>{siteInfo.phone}</strong>
             </a>
           </aside>
         </div>
@@ -141,7 +142,7 @@ export default function DonationPage() {
             <h2>Need help with a contribution?</h2>
             <p>Ask the Society for verified instructions or assistance with a transaction.</p>
           </div>
-          <a href="mailto:info@voiceofexservicemen.in?subject=Donation%20support" className="btn btn-outline-success">Email the Society</a>
+          <a href={emailLink('Donation support')} className="btn btn-outline-success">Email the Society</a>
         </div>
       </section>
     </main>

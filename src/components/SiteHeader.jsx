@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import LanguageSelector from './LanguageSelector.jsx';
+import { officeAddress, phoneLink, siteInfo } from '../data/siteInfo.js';
 import assetUrl from '../utils/assetUrl.js';
 
 const navigation = [
@@ -35,8 +36,8 @@ export default function SiteHeader() {
         <div className="container d-flex flex-wrap align-items-center justify-content-between gap-2">
           <div className="d-flex flex-wrap align-items-center gap-3 small">
             <span><i className="fa-brands fa-youtube me-2" aria-hidden="true"></i>YouTube</span>
-            <a className="text-white text-decoration-none" href="tel:9897468767"><i className="fa-solid fa-phone me-2" aria-hidden="true"></i>9897468767</a>
-            <span><i className="fa-solid fa-location-dot me-2" aria-hidden="true"></i>59, Vipin Garden Extension Dwarka, New Delhi-110059</span>
+            <a className="text-white text-decoration-none" href={phoneLink}><i className="fa-solid fa-phone me-2" aria-hidden="true"></i>{siteInfo.phone}</a>
+            <span><i className="fa-solid fa-location-dot me-2" aria-hidden="true"></i>{officeAddress}</span>
           </div>
           <div className="header-actions d-flex align-items-stretch">
             <Link to="/donate" className="donate-link"><i className="fa-regular fa-heart me-2" aria-hidden="true"></i>Donate</Link>
@@ -48,11 +49,11 @@ export default function SiteHeader() {
 
       <div className="identity-bar">
         <div className="container d-flex align-items-center justify-content-between gap-4">
-          <Link className="brand-mark" to="/" aria-label="Voice of Ex-Servicemen Society home">
-            <img src={assetUrl('assets/logo.png')} alt="Voice of Ex-Servicemen Society logo" width="192" height="188" />
+          <Link className="brand-mark" to="/" aria-label={`${siteInfo.name} home`}>
+            <img src={assetUrl('assets/logo.png')} alt={`${siteInfo.name} logo`} width="192" height="188" />
           </Link>
           <div className="brand-copy text-center flex-grow-1">
-            <div className="fw-bold">Voice of Ex-Servicemen Society (Regd.) India</div>
+            <div className="fw-bold">{siteInfo.legalName}</div>
             <small className="text-success d-block">(Registration No. 2223/2014-15 under Society Act 1860)</small>
             <small className="d-block">(An All India Ex-Servicemen JCOs/NCOs/ORs Movement)</small>
           </div>

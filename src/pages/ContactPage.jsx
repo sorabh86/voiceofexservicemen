@@ -1,5 +1,6 @@
 import PageBanner from '../components/PageBanner.jsx';
 import LocationMap from '../components/LocationMap.jsx';
+import { emailLink, phoneLink, siteInfo } from '../data/siteInfo.js';
 
 export default function ContactPage() {
   return (
@@ -11,7 +12,7 @@ export default function ContactPage() {
         <div className="row g-4">
           <div className="col-lg-6">
             <div className="card p-3 h-100">
-              <form action="mailto:info@voiceofexservicemen.in" method="post" encType="text/plain">
+              <form action={emailLink()} method="post" encType="text/plain">
                 <div className="mb-3">
                   <label className="form-label" htmlFor="contact-name">Name</label>
                   <input id="contact-name" name="name" className="form-control" autoComplete="name" required />
@@ -32,11 +33,11 @@ export default function ContactPage() {
             <div className="card p-4 h-100">
               <h2 className="h4">Central Office</h2>
               <address>
-                59, Vipin Garden Extension Dwarka,<br />
-                New Delhi-110059
+                {siteInfo.addressLines[0]}<br />
+                {siteInfo.addressLines[1]}
               </address>
-              <p><strong>Phone:</strong> <a href="tel:9897468767">9897468767</a></p>
-              <p><strong>Email:</strong> <a href="mailto:info@voiceofexservicemen.in">info@voiceofexservicemen.in</a></p>
+              <p><strong>Phone:</strong> <a href={phoneLink}>{siteInfo.phone}</a></p>
+              <p><strong>Email:</strong> <a href={emailLink()}>{siteInfo.email}</a></p>
               <LocationMap className="ratio ratio-16x9 rounded overflow-hidden shadow-sm mt-auto" />
             </div>
           </div>

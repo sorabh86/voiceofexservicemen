@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import PageBanner from '../components/PageBanner.jsx';
+import { phoneLink, siteInfo } from '../data/siteInfo.js';
 
 const resources = [
   {
@@ -141,7 +142,7 @@ export default function DownloadsPage() {
           <span className="downloads-help-icon" aria-hidden="true">
             <i className="fa-solid fa-circle-info"></i>
           </span>
-          <p>Need help finding the right scheme or service? <a href="tel:9897468767">Call the Society at 9897468767</a> and we’ll help point you in the right direction.</p>
+          <p>Need help finding the right scheme or service? <a href={phoneLink}>Call the Society at {siteInfo.phone}</a> and we’ll help point you in the right direction.</p>
         </aside>
       </section>
     </main>

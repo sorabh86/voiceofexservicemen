@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import SiteFooter from './components/SiteFooter.jsx';
 import SiteHeader from './components/SiteHeader.jsx';
+import { siteInfo } from './data/siteInfo.js';
 import assetUrl from './utils/assetUrl.js';
 
 const AboutPage = lazy(() => import('./pages/AboutPage.jsx'));
@@ -24,7 +25,7 @@ function PageLoadingScreen() {
       <div className="modal fade show d-block page-loading-modal" role="dialog" aria-modal="true" aria-label="Loading page">
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content page-loading-content">
-            <img className="page-loading-logo" src={assetUrl('assets/logo.png')} alt="Voice of Ex-Servicemen Society" />
+            <img className="page-loading-logo" src={assetUrl('assets/logo.png')} alt={siteInfo.name} />
             <span className="page-loading-spinner" aria-hidden="true"></span>
             <span className="page-loading-label">Loading page…</span>
           </div>
@@ -72,7 +73,7 @@ function PageTitle() {
 
   useEffect(() => {
     const title = pageTitles[pathname] || (pathname.startsWith('/news/') ? 'News & Events' : 'Page Not Found');
-    document.title = `${title} | Voice of Ex-Servicemen Society`;
+    document.title = `${title} | ${siteInfo.name}`;
   }, [pathname]);
 
   return null;
