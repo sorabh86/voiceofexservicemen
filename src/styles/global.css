@@ -1157,7 +1157,6 @@ button:not(.navbar-toggler) {
   .btn:not(:disabled):hover,
   button:not(:disabled):not(.navbar-toggler):hover {
     box-shadow: 0 .35rem .9rem rgba(16,42,140,.16);
-    transform: translateY(-2px);
   }
 
   .btn:not(:disabled):active,
@@ -2425,8 +2424,7 @@ button:not(.navbar-toggler) {
   padding: .45rem .9rem;
   transition: background-color var(--motion-fast) var(--motion-ease),
     border-color var(--motion-fast) var(--motion-ease),
-    color var(--motion-fast) var(--motion-ease),
-    transform var(--motion-fast) var(--motion-ease);
+    color var(--motion-fast) var(--motion-ease);
 }
 
 .downloads-filter:hover,
@@ -2434,10 +2432,6 @@ button:not(.navbar-toggler) {
   background: #222860;
   border-color: #222860;
   color: #fff;
-}
-
-.downloads-filter:hover {
-  transform: translateY(-1px);
 }
 
 .downloads-grid {
