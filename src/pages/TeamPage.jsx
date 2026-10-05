@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import PageBanner from '../components/PageBanner.jsx';
+import { emailLink } from '../data/siteInfo.js';
 import assetUrl from '../utils/assetUrl.js';
 
 const teamMembers = [
@@ -15,25 +17,75 @@ const teamMembers = [
 
 export default function TeamPage() {
   return (
-    <main className="about-content">
-      <section className="container py-4">
-        <h1>Our Team</h1>
-        <p className="mb-4">Meet the people working together to represent and support ex-servicemen across India.</p>
-        <div className="row g-4">
-          {teamMembers.map((member) => (
-            <article className="col-12 col-sm-6 col-lg-4 col-xl-3 team-member" key={member.name}>
-              <img className="w-100 rounded" src={assetUrl(`assets/members/${member.image}`)} alt={member.name} loading="lazy" />
-              <h2 className="h5 mt-3">{member.name}</h2>
-              <p>{member.role}</p>
+    <main className="about-content team-page">
+      <PageBanner title="Our Team" />
+      <section className="container team-content">
+        <header className="team-intro">
+          <p className="home-eyebrow">Working together for ex-servicemen</p>
+          <h1>Meet the people behind the Society</h1>
+          <p>
+            Our team brings together leaders and coordinators committed to representing
+            ex-servicemen and supporting the veteran community across India.
+          </p>
+          <div className="team-intro-meta">
+            <span><i className="fa-solid fa-people-group" aria-hidden="true"></i>{teamMembers.length} listed team members</span>
+            <span><i className="fa-solid fa-map-location-dot" aria-hidden="true"></i>National and state coordination</span>
+          </div>
+        </header>
+
+        <section aria-labelledby="team-roster-title">
+          <div className="team-roster-heading">
+            <div>
+              <h2 id="team-roster-title">Leadership and coordination</h2>
+              <p>Meet the people helping bring the Society’s work together.</p>
+            </div>
+          </div>
+
+          <div className="team-roster-grid">
+            {teamMembers.map(({ name, role, image }) => (
+              <article className="team-profile-card" key={name}>
+                <div className="team-profile-image">
+                  <img
+                    src={assetUrl(`assets/members/${image}`)}
+                    alt={name}
+                    loading="lazy"
+                  />
+                </div>
+                <div className="team-profile-copy">
+                  <h3>{name}</h3>
+                  <p>
+                    <i className="fa-solid fa-award" aria-hidden="true"></i>
+                    {role}
+                  </p>
+                </div>
+              </article>
+            ))}
+
+            <article className="team-invite-card">
+              <span className="team-invite-icon" aria-hidden="true">
+                <i className="fa-solid fa-handshake-angle"></i>
+              </span>
+              <p className="home-eyebrow">Get involved</p>
+              <h3>There’s room to contribute</h3>
+              <p>Interested in supporting the Society’s work? Get in touch to learn more about volunteering.</p>
+              <Link className="btn btn-success" to="/contact">
+                Contact the Society
+                <i className="fa-solid fa-arrow-right ms-2" aria-hidden="true"></i>
+              </Link>
             </article>
-          ))}
-          <article className="col-12 col-sm-6 col-lg-4 col-xl-3 team-member">
-            <img className="w-100 rounded" src={assetUrl('assets/members/default.jpg')} alt="Join our team" loading="lazy" />
-            <h2 className="h5 mt-3">You Could Be Next</h2>
-            <p>Join our team and volunteer.</p>
-            <Link className="btn btn-success w-100" to="/contact">Join Team</Link>
-          </article>
-        </div>
+          </div>
+        </section>
+
+        <aside className="team-contact-strip">
+          <div>
+            <h2>Want to connect with the team?</h2>
+            <p>Send an enquiry and the Society will help direct it to the right place.</p>
+          </div>
+          <a className="btn btn-outline-success" href={emailLink('Team enquiry')}>
+            <i className="fa-regular fa-envelope me-2" aria-hidden="true"></i>
+            Email the Society
+          </a>
+        </aside>
       </section>
     </main>
   );

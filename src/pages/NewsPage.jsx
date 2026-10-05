@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
+import PageBanner from '../components/PageBanner.jsx';
 import assetUrl from '../utils/assetUrl.js';
 
 const posts = [
@@ -25,9 +27,14 @@ const posts = [
   }
 ];
 
-const formatDate = (date) => new Date(`${date}T00:00:00`).toLocaleDateString('en-US', {
+const formatDate = (date) => new Date(`${date}T00:00:00`).toLocaleDateString('en-IN', {
   month: 'long',
   day: 'numeric',
+  year: 'numeric'
+});
+
+const formatMonth = (month) => new Date(`${month}-01T00:00:00`).toLocaleDateString('en-IN', {
+  month: 'long',
   year: 'numeric'
 });
 
@@ -35,13 +42,41 @@ export default function NewsPage() {
   const { pageNumber } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedMonth = searchParams.get('month') || '';
+  const query = searchParams.get('q') || '';
+  const [search, setSearch] = useState(query);
   const requestedPage = Number(searchParams.get('page')) || Number(pageNumber) || 1;
-  const filteredPosts = posts.filter((post) => !selectedMonth || post.date.startsWith(selectedMonth));
+  const archive = [...new Set(posts.map((post) => post.date.slice(0, 7)))].sort().reverse();
+  const validMonth = archive.includes(selectedMonth) ? selectedMonth : '';
+  const normalizedQuery = query.trim().toLocaleLowerCase();
+  const filteredPosts = posts.filter((post) => {
+    const matchesMonth = !validMonth || post.date.startsWith(validMonth);
+    const matchesQuery = !normalizedQuery
+      || `${post.title} ${post.description} ${post.category}`.toLocaleLowerCase().includes(normalizedQuery);
+    return matchesMonth && matchesQuery;
+  });
   const pageSize = 2;
   const pageCount = Math.max(1, Math.ceil(filteredPosts.length / pageSize));
   const currentPage = Math.min(Math.max(requestedPage, 1), pageCount);
   const pagePosts = filteredPosts.slice((currentPage - 1) * pageSize, currentPage * pageSize);
-  const archive = [...new Set(posts.map((post) => post.date.slice(0, 7)))];
+
+  useEffect(() => {
+    setSearch(query);
+  }, [query]);
+
+  function submitSearch(event) {
+    event.preventDefault();
+    const nextParams = new URLSearchParams(searchParams);
+    const trimmedSearch = search.trim();
+
+    if (trimmedSearch) {
+      nextParams.set('q', trimmedSearch);
+    } else {
+      nextParams.delete('q');
+    }
+
+    nextParams.delete('page');
+    setSearchParams(nextParams);
+  }
 
   function selectPage(page) {
     const nextParams = new URLSearchParams(searchParams);
@@ -49,69 +84,146 @@ export default function NewsPage() {
     setSearchParams(nextParams);
   }
 
+  function clearFilters() {
+    setSearch('');
+    setSearchParams({});
+  }
+
   return (
     <main className="news-page">
-      <section className="container py-4 py-lg-5">
-        <div className="row g-4 g-xl-5 align-items-start">
-          <div className="col-lg-8">
-            <h1 className="news-title">News/Events</h1>
-            {selectedMonth && (
-              <div className="d-flex justify-content-between align-items-center py-3">
-                <p className="mb-0">Showing {new Date(`${selectedMonth}-01T00:00:00`).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</p>
-                <button className="btn btn-sm btn-outline-secondary" type="button" onClick={() => setSearchParams({})}>Show all news</button>
+      <PageBanner title="News & Events" />
+      <section className="container news-content" aria-labelledby="news-page-title">
+        <header className="news-intro">
+          <p className="home-eyebrow">Society updates and announcements</p>
+          <h1 id="news-page-title">News from the community</h1>
+          <p>Search published updates or browse them by archive month.</p>
+        </header>
+
+        <div className="news-layout">
+          <section className="news-main" aria-labelledby="news-list-title">
+            <div className="news-toolbar">
+              <div>
+                <h2 id="news-list-title">{validMonth ? formatMonth(validMonth) : 'All updates'}</h2>
+                <p>{filteredPosts.length} {filteredPosts.length === 1 ? 'update' : 'updates'} found</p>
+              </div>
+              <form className="news-search" role="search" onSubmit={submitSearch}>
+                <label className="visually-hidden" htmlFor="news-search-input">Search news</label>
+                <i className="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input
+                  id="news-search-input"
+                  type="search"
+                  value={search}
+                  onChange={(event) => setSearch(event.target.value)}
+                  placeholder="Search updates"
+                />
+                <button className="btn btn-success" type="submit">Search</button>
+              </form>
+            </div>
+
+            {query && (
+              <div className="news-active-filters">
+                <span>Search: <strong>{query}</strong></span>
+                <button type="button" onClick={clearFilters}>Clear filters</button>
               </div>
             )}
-            <div className="news-posts">
-              {pagePosts.map((post) => (
-                <article className="news-post" key={post.title}>
-                  <h2>{post.title}</h2>
-                  <p className="news-meta">
-                    <time dateTime={post.date}>{formatDate(post.date)}</time>
-                    <span aria-hidden="true"> | </span>
-                    <span>Categories: {post.category}</span>
-                  </p>
-                  <div className="news-post-body">
+
+            {pagePosts.length > 0 ? (
+              <div className="news-card-list">
+                {pagePosts.map((post) => (
+                  <article className="news-card" key={post.title}>
                     <img src={assetUrl(`assets/${post.image}`)} alt="" loading="lazy" />
-                    <p>{post.description}</p>
-                  </div>
-                </article>
-              ))}
-              {pagePosts.length === 0 && <p>No news is available for this month.</p>}
-            </div>
+                    <div className="news-card-content">
+                      <div className="news-card-meta">
+                        <span className="news-category">{post.category}</span>
+                        <time dateTime={post.date}>
+                          <i className="fa-regular fa-calendar" aria-hidden="true"></i>
+                          {formatDate(post.date)}
+                        </time>
+                      </div>
+                      <h3>{post.title}</h3>
+                      <p>{post.description}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            ) : (
+              <div className="news-empty-state" role="status">
+                <span aria-hidden="true"><i className="fa-regular fa-newspaper"></i></span>
+                <h3>No matching updates</h3>
+                <p>Try a different search term or browse all published updates.</p>
+                <button className="btn btn-outline-success" type="button" onClick={clearFilters}>
+                  Show all updates
+                </button>
+              </div>
+            )}
+
             {pageCount > 1 && (
-              <nav className="mt-4" aria-label="News pages">
-                <ul className="pagination mb-0">
-                  <li className={`page-item${currentPage === 1 ? ' disabled' : ''}`}>
-                    <button className="page-link" type="button" aria-label="Previous page" disabled={currentPage === 1} onClick={() => selectPage(currentPage - 1)}>«</button>
-                  </li>
-                  {Array.from({ length: pageCount }, (_, index) => index + 1).map((page) => (
-                    <li className={`page-item${page === currentPage ? ' active' : ''}`} key={page}>
-                      <button className="page-link" type="button" aria-current={page === currentPage ? 'page' : undefined} onClick={() => selectPage(page)}>{page}</button>
-                    </li>
-                  ))}
-                  <li className={`page-item${currentPage === pageCount ? ' disabled' : ''}`}>
-                    <button className="page-link" type="button" aria-label="Next page" disabled={currentPage === pageCount} onClick={() => selectPage(currentPage + 1)}>»</button>
-                  </li>
-                </ul>
+              <nav className="news-pagination" aria-label="News pages">
+                <button type="button" disabled={currentPage === 1} onClick={() => selectPage(currentPage - 1)}>
+                  <i className="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                  Previous
+                </button>
+                <span>Page {currentPage} of {pageCount}</span>
+                <button type="button" disabled={currentPage === pageCount} onClick={() => selectPage(currentPage + 1)}>
+                  Next
+                  <i className="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </button>
               </nav>
             )}
-          </div>
-          <aside className="col-lg-4">
-            <div className="news-archive">
-              <h2>Monthwise</h2>
+          </section>
+
+          <aside className="news-sidebar">
+            <nav className="news-archive" aria-labelledby="news-archive-title">
+              <div className="news-archive-heading">
+                <span aria-hidden="true"><i className="fa-regular fa-calendar-days"></i></span>
+                <div>
+                  <h2 id="news-archive-title">Browse the archive</h2>
+                  <p>Choose a month to filter updates.</p>
+                </div>
+              </div>
               <ul>
-                {archive.map((month) => (
-                  <li key={month}>
-                    <Link to={`/news?month=${month}`}>
-                      <span aria-hidden="true">›</span>
-                      {new Date(`${month}-01T00:00:00`).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
-                    </Link>
-                  </li>
-                ))}
+                <li>
+                  <Link className={!validMonth ? 'active' : ''} to="/news" aria-current={!validMonth ? 'page' : undefined}>
+                    <span>All updates</span>
+                    <span className="news-archive-count">{posts.length}</span>
+                  </Link>
+                </li>
+                {archive.map((month) => {
+                  const count = posts.filter((post) => post.date.startsWith(month)).length;
+                  const isActive = validMonth === month;
+
+                  return (
+                    <li key={month}>
+                      <Link
+                        className={isActive ? 'active' : ''}
+                        to={`/news?month=${month}`}
+                        aria-current={isActive ? 'page' : undefined}
+                      >
+                        <span>{formatMonth(month)}</span>
+                        <span className="news-archive-count">{count}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
+            </nav>
+
+            <div className="news-help-card">
+              <span aria-hidden="true"><i className="fa-solid fa-circle-info"></i></span>
+              <h2>Looking for a specific resource?</h2>
+              <p>Browse official portals and support links in our resource directory.</p>
+              <Link to="/downloads">Visit resources <i className="fa-solid fa-arrow-right" aria-hidden="true"></i></Link>
             </div>
           </aside>
         </div>
+
+        <aside className="news-contact-strip">
+          <div>
+            <h2>Have a question for the Society?</h2>
+            <p>Send an enquiry and the team will help direct it to the right place.</p>
+          </div>
+          <Link className="btn btn-outline-success" to="/contact">Contact the Society</Link>
+        </aside>
       </section>
     </main>
   );

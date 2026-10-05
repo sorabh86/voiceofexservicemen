@@ -1,6 +1,6 @@
 import PageBanner from '../components/PageBanner.jsx';
 import { emailLink, siteInfo } from '../data/siteInfo.js';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const policies = [
@@ -18,6 +18,7 @@ const policies = [
   },
   {
     title: 'Donation Policy',
+    id: 'donation-policy',
     sections: [
       ['Acceptance of donations', 'Voice of Ex-Servicemen accepts voluntary donations to support welfare initiatives, awareness programmes, advocacy, and other legitimate organisational activities.'],
       ['Online payments', 'Payments may be processed by third-party payment providers. We do not ask donors to send card numbers, CVVs, UPI PINs, or banking passwords by email or through contact forms.'],
@@ -28,6 +29,7 @@ const policies = [
   },
   {
     title: 'Refund & Cancellation Policy',
+    id: 'refund-policy',
     sections: [
       ['Voluntary donations', 'Donations are generally non-refundable and cannot be cancelled after a successful transaction.'],
       ['Duplicate or mistaken transactions', 'If you believe a donation was duplicated or made due to a technical error, contact us promptly with the transaction reference, date, and amount. Requests are reviewed after verification and any refund is subject to payment-provider and banking procedures.'],
@@ -36,6 +38,7 @@ const policies = [
   },
   {
     title: 'Privacy Policy',
+    id: 'privacy-policy',
     sections: [
       ['Information we collect', 'We may receive information you choose to provide, such as your name, email address, telephone number, message, or donation details. Technical information may also be processed to operate and protect the website.'],
       ['How information is used', 'Information is used to respond to enquiries, administer membership or donations, provide requested assistance, and maintain the security and operation of the website.'],
@@ -45,6 +48,7 @@ const policies = [
   },
   {
     title: 'Terms & Conditions',
+    id: 'website-terms',
     sections: [
       ['Website use', 'This website provides general information about the society and its activities. Use it lawfully and do not attempt to disrupt, damage, or gain unauthorised access to the site or its services.'],
       ['Information and assistance', 'Website content is provided for general information and is not a substitute for professional legal, financial, or other advice. Contact the society about an individual matter before relying on information for a decision.'],
@@ -54,46 +58,110 @@ const policies = [
   }
 ];
 
+const policyIcons = [
+  'fa-people-group',
+  'fa-hand-holding-heart',
+  'fa-rotate-left',
+  'fa-user-shield',
+  'fa-globe'
+];
+
 export default function PolicyPage() {
   const { hash } = useLocation();
+  const [openPolicies, setOpenPolicies] = useState(() => new Set(['donation-policy']));
 
   useEffect(() => {
-    if (hash !== '#membership-terms') {
+    const policyId = hash.slice(1);
+    if (!policies.some(({ id }) => id === policyId)) {
       return;
     }
 
-    const membershipTerms = document.getElementById('membership-terms');
-    if (membershipTerms instanceof HTMLDetailsElement) {
-      membershipTerms.open = true;
-      membershipTerms.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    setOpenPolicies((current) => new Set(current).add(policyId));
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.getElementById(policyId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
   }, [hash]);
 
+  function togglePolicy(policyId, isOpen) {
+    setOpenPolicies((current) => {
+      const next = new Set(current);
+      if (isOpen) {
+        next.add(policyId);
+      } else {
+        next.delete(policyId);
+      }
+      return next;
+    });
+  }
+
+  function setAllPoliciesOpen(isOpen) {
+    setOpenPolicies(isOpen ? new Set(policies.map(({ id }) => id)) : new Set());
+  }
+
   return (
-    <main className="about-content">
+    <main className="about-content policy-page">
       <PageBanner title="Policies & Documents" image="donate.jpg" />
-      <section className="container py-4">
-        <h1>Policies &amp; Documents</h1>
-        <p>Review the policies that apply to donations and use of this website.</p>
-        <div className="accordion" id="policy-accordion">
+      <section className="container policy-content" aria-labelledby="policy-page-title">
+        <header className="policy-intro">
+          <p className="home-eyebrow">Clear information, in one place</p>
+          <h1 id="policy-page-title">Policies &amp; documents</h1>
+          <p>Review the Society’s membership, donation, refund, privacy, and website policies. Select a section to read it, or jump directly to the policy you need.</p>
+        </header>
+
+        <nav className="policy-index" aria-label="Policy sections">
           {policies.map((policy, index) => (
-            <details className="accordion-item" id={policy.id} key={policy.title} open={index === 1}>
-              <summary className={`accordion-button${index === 1 ? '' : ' collapsed'}`}>
-                {policy.title}
-              </summary>
-              <div className="accordion-body policy-document">
-                <h2>{policy.title}</h2>
-                {policy.sections.map(([heading, content], sectionIndex) => (
-                  <section key={heading}>
-                    <h3>{sectionIndex + 1}. {heading}</h3>
-                    <p>{content}</p>
-                  </section>
-                ))}
-                <p><strong>Contact:</strong> <a href={emailLink()}>{siteInfo.email}</a></p>
-              </div>
-            </details>
+            <a className="policy-index-link" href={`#${policy.id}`} key={policy.id}>
+              <i className={`fa-solid ${policyIcons[index]}`} aria-hidden="true"></i>
+              <span>{policy.title}</span>
+              <i className="fa-solid fa-arrow-down policy-index-arrow" aria-hidden="true"></i>
+            </a>
           ))}
-        </div>
+        </nav>
+
+        <section className="policy-list" aria-label="Policy documents">
+          <div className="policy-list-controls">
+            <p>{policies.length} policy sections</p>
+            <div>
+              <button type="button" onClick={() => setAllPoliciesOpen(true)}>Expand all</button>
+              <span aria-hidden="true">·</span>
+              <button type="button" onClick={() => setAllPoliciesOpen(false)}>Collapse all</button>
+            </div>
+          </div>
+          <div className="accordion" id="policy-accordion">
+            {policies.map((policy, index) => {
+              const isOpen = openPolicies.has(policy.id);
+              return (
+                <details
+                  className="accordion-item policy-item"
+                  id={policy.id}
+                  key={policy.id}
+                  open={isOpen}
+                  onToggle={(event) => togglePolicy(policy.id, event.currentTarget.open)}
+                >
+                  <summary className="accordion-button">
+                    <span className="policy-item-icon" aria-hidden="true">
+                      <i className={`fa-solid ${policyIcons[index]}`}></i>
+                    </span>
+                    <span className="policy-item-title">{policy.title}</span>
+                    <span className="policy-item-count">{policy.sections.length} sections</span>
+                    <i className="fa-solid fa-chevron-down policy-item-chevron" aria-hidden="true"></i>
+                  </summary>
+                  <div className="accordion-body policy-document">
+                    {policy.sections.map(([heading, content], sectionIndex) => (
+                      <section key={heading}>
+                        <h2>{sectionIndex + 1}. {heading}</h2>
+                        <p>{content}</p>
+                      </section>
+                    ))}
+                    <p className="policy-contact"><strong>Questions?</strong> Contact the Society at <a href={emailLink()}>{siteInfo.email}</a>.</p>
+                  </div>
+                </details>
+              );
+            })}
+          </div>
+        </section>
       </section>
     </main>
   );

@@ -1,15 +1,15 @@
 import assetUrl from '../utils/assetUrl.js';
 
 const actions = [
-  { title: 'Rally', image: 'action/action1.jpg' },
-  { title: 'Peaceful Protest March', image: 'action/action2.jpg' },
-  { title: 'Advocacy & Engagement', image: 'action/action3.jpg' },
-  { title: 'Community Workshop', image: 'action/action4.jpg' }
+  { title: 'Rally', image: 'assets/action/action1.jpg' },
+  { title: 'Peaceful Protest March', image: 'assets/action/action2.jpg' },
+  { title: 'Advocacy & Engagement', image: 'assets/action/action3.jpg' },
+  { title: 'Community Workshop', image: 'assets/action/action4.jpg' }
 ];
 
-export default function ActionGallery() {
+export default function ActionGallery({ className = '' }) {
   return (
-    <section className="row my-4 g-4">
+    <section className={`row my-4 g-4 ${className}`.trim()}>
       <div className="col-12">
         <h2>Our Impact in Action</h2>
       </div>
