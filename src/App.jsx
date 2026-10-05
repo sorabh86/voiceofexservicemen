@@ -1,19 +1,38 @@
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import SiteFooter from './components/SiteFooter.jsx';
 import SiteHeader from './components/SiteHeader.jsx';
-import AboutPage from './pages/AboutPage.jsx';
-import BlogPage from './pages/BlogPage.jsx';
-import ContactPage from './pages/ContactPage.jsx';
-import DownloadsPage from './pages/DownloadsPage.jsx';
-import DonationPage from './pages/DonationPage.jsx';
-import HomePage from './pages/HomePage.jsx';
-import MembershipPage from './pages/MembershipPage.jsx';
-import NewsPage from './pages/NewsPage.jsx';
-import NotFoundPage from './pages/NotFoundPage.jsx';
-import PolicyPage from './pages/PolicyPage.jsx';
-import ServicesPage from './pages/ServicesPage.jsx';
-import TeamPage from './pages/TeamPage.jsx';
+import assetUrl from './utils/assetUrl.js';
+
+const AboutPage = lazy(() => import('./pages/AboutPage.jsx'));
+const BlogPage = lazy(() => import('./pages/BlogPage.jsx'));
+const ContactPage = lazy(() => import('./pages/ContactPage.jsx'));
+const DownloadsPage = lazy(() => import('./pages/DownloadsPage.jsx'));
+const DonationPage = lazy(() => import('./pages/DonationPage.jsx'));
+const HomePage = lazy(() => import('./pages/HomePage.jsx'));
+const MembershipPage = lazy(() => import('./pages/MembershipPage.jsx'));
+const NewsPage = lazy(() => import('./pages/NewsPage.jsx'));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage.jsx'));
+const PolicyPage = lazy(() => import('./pages/PolicyPage.jsx'));
+const ServicesPage = lazy(() => import('./pages/ServicesPage.jsx'));
+const TeamPage = lazy(() => import('./pages/TeamPage.jsx'));
+
+function PageLoadingScreen() {
+  return (
+    <div className="page-loading-overlay" role="status" aria-live="polite" aria-busy="true">
+      <div className="modal-backdrop fade show page-loading-backdrop" aria-hidden="true"></div>
+      <div className="modal fade show d-block page-loading-modal" role="dialog" aria-modal="true" aria-label="Loading page">
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content page-loading-content">
+            <img className="page-loading-logo" src={assetUrl('assets/logo.png')} alt="Voice of Ex-Servicemen Society" />
+            <span className="page-loading-spinner" aria-hidden="true"></span>
+            <span className="page-loading-label">Loading page…</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function ScrollToTop() {
   const { pathname, search } = useLocation();
@@ -65,31 +84,33 @@ export default function App() {
       <ScrollToTop />
       <PageTitle />
       <SiteHeader />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/index.html" element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/about.html" element={<AboutPage />} />
-        <Route path="/team" element={<TeamPage />} />
-        <Route path="/team.html" element={<TeamPage />} />
-        <Route path="/news" element={<NewsPage />} />
-        <Route path="/news/:pageNumber" element={<NewsPage />} />
-        <Route path="/news.html" element={<NewsPage />} />
-        <Route path="/services" element={<ServicesPage />} />
-        <Route path="/services.html" element={<ServicesPage />} />
-        <Route path="/policy" element={<PolicyPage />} />
-        <Route path="/policy.html" element={<PolicyPage />} />
-        <Route path="/policy-1.html" element={<PolicyPage />} />
-        <Route path="/blog" element={<BlogPage />} />
-        <Route path="/blog.html" element={<BlogPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/contact.html" element={<ContactPage />} />
-        <Route path="/downloads" element={<DownloadsPage />} />
-        <Route path="/donate" element={<DonationPage />} />
-        <Route path="/donation" element={<DonationPage />} />
-        <Route path="/membership" element={<MembershipPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+      <Suspense fallback={<PageLoadingScreen />}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/index.html" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/about.html" element={<AboutPage />} />
+          <Route path="/team" element={<TeamPage />} />
+          <Route path="/team.html" element={<TeamPage />} />
+          <Route path="/news" element={<NewsPage />} />
+          <Route path="/news/:pageNumber" element={<NewsPage />} />
+          <Route path="/news.html" element={<NewsPage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/services.html" element={<ServicesPage />} />
+          <Route path="/policy" element={<PolicyPage />} />
+          <Route path="/policy.html" element={<PolicyPage />} />
+          <Route path="/policy-1.html" element={<PolicyPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog.html" element={<BlogPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/contact.html" element={<ContactPage />} />
+          <Route path="/downloads" element={<DownloadsPage />} />
+          <Route path="/donate" element={<DonationPage />} />
+          <Route path="/donation" element={<DonationPage />} />
+          <Route path="/membership" element={<MembershipPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Suspense>
       <SiteFooter />
     </BrowserRouter>
   );
