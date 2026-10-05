@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex" />
+    <title>Redirecting</title>
+    <script>
+      const basePath = '/voiceofexservicemen';
+      const path = window.location.pathname.startsWith(`${basePath}/`)
+        ? window.location.pathname.slice(basePath.length + 1)
+        : '';
+      const query = window.location.search.slice(1);
+      const hash = window.location.hash.slice(1);
+      const redirect = `${basePath}/?/${[path, query, hash].map(encodeURIComponent).join('&')}`;
+      window.location.replace(redirect);
+    </script>
+  </head>
+  <body>
+    <p>Redirecting to the requested page…</p>
+  </body>
+</html>

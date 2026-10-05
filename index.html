@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Official portal of Voice of Ex-Servicemen Society (Regd.) India" />
+    <meta name="keywords" content="veterans, ex-servicemen, welfare, support, advocacy" />
+    <title>Voice of Ex-Servicemen Society (Regd.) India</title>
+    <link rel="icon" type="image/png" href="/voiceofexservicemen/assets/logo.png" />
+    <script>
+      const basePath = '/voiceofexservicemen';
+      const redirect = window.location.search;
+      if (redirect.startsWith('?/')) {
+        const [route = '', search = '', hash = ''] = redirect.slice(2).split('&').map(decodeURIComponent);
+        const restoredUrl = `${basePath}/${route}${search ? `?${search}` : ''}${hash ? `#${hash}` : ''}`;
+        window.history.replaceState(null, '', restoredUrl);
+      }
+    </script>
+    <script type="module" crossorigin src="/voiceofexservicemen/assets/index-BSV66DLB.js"></script>
+    <link rel="stylesheet" crossorigin href="/voiceofexservicemen/assets/index-ki9ACh5u.css">
+  </head>
+  <body class="flex flex-col min-h-screen bg-slate-50">
+    <div id="root"></div>
+  </body>
+</html>
