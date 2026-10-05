@@ -1,6 +1,20 @@
 import PageBanner from '../components/PageBanner.jsx';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const policies = [
+  {
+    title: 'Membership Terms & Conditions',
+    id: 'membership-terms',
+    sections: [
+      ['Application and acceptance', 'Submitting an application is an enquiry and does not by itself create membership. The Society will review the information and contact the applicant about any applicable eligibility requirements, documents, fees, and next steps. Membership begins only after the Society confirms acceptance through its official process.'],
+      ['Accurate information', 'Applicants should provide information that is accurate and current, and notify the Society if their contact details change while an application is being reviewed. The Society may request clarification or supporting information before making a decision.'],
+      ['Membership and donations', 'Any donation shown on the application is optional, separate from the membership decision, and is not a membership fee. Submitting an intended donation amount does not make a payment; donations must be completed through a separately confirmed payment method.'],
+      ['Conduct and participation', 'Members are expected to engage respectfully and lawfully with the Society, its representatives, and other members, and to follow applicable Society rules and decisions communicated to them.'],
+      ['Privacy and communications', 'Information submitted with an application is used to review and respond to the membership enquiry in accordance with the Privacy Policy. Applicants may contact the Society to ask about their information or application.'],
+      ['Changes and contact', 'The Society may update these terms and will publish the current version on this page. Questions about membership can be sent to info@voiceofexservicemen.in or raised by calling 9897468767.']
+    ]
+  },
   {
     title: 'Donation Policy',
     sections: [
@@ -40,6 +54,20 @@ const policies = [
 ];
 
 export default function PolicyPage() {
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (hash !== '#membership-terms') {
+      return;
+    }
+
+    const membershipTerms = document.getElementById('membership-terms');
+    if (membershipTerms instanceof HTMLDetailsElement) {
+      membershipTerms.open = true;
+      membershipTerms.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [hash]);
+
   return (
     <main className="about-content">
       <PageBanner title="Policies & Documents" image="donate.jpg" />
@@ -48,8 +76,8 @@ export default function PolicyPage() {
         <p>Review the policies that apply to donations and use of this website.</p>
         <div className="accordion" id="policy-accordion">
           {policies.map((policy, index) => (
-            <details className="accordion-item" key={policy.title} open={index === 0}>
-              <summary className={`accordion-button${index === 0 ? '' : ' collapsed'}`}>
+            <details className="accordion-item" id={policy.id} key={policy.title} open={index === 1}>
+              <summary className={`accordion-button${index === 1 ? '' : ' collapsed'}`}>
                 {policy.title}
               </summary>
               <div className="accordion-body policy-document">

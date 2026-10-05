@@ -6,7 +6,9 @@ import AboutPage from './pages/AboutPage.jsx';
 import BlogPage from './pages/BlogPage.jsx';
 import ContactPage from './pages/ContactPage.jsx';
 import DownloadsPage from './pages/DownloadsPage.jsx';
+import DonationPage from './pages/DonationPage.jsx';
 import HomePage from './pages/HomePage.jsx';
+import MembershipPage from './pages/MembershipPage.jsx';
 import NewsPage from './pages/NewsPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 import PolicyPage from './pages/PolicyPage.jsx';
@@ -43,7 +45,10 @@ function PageTitle() {
     '/blog.html': 'Blog & Legal HelpLine',
     '/contact': 'Contact Us',
     '/contact.html': 'Contact Us',
-    '/downloads': 'Downloads & Resources'
+    '/downloads': 'Downloads & Resources',
+    '/donate': 'Donate',
+    '/donation': 'Donate',
+    '/membership': 'Membership'
   };
 
   useEffect(() => {
@@ -80,6 +85,9 @@ export default function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/contact.html" element={<ContactPage />} />
         <Route path="/downloads" element={<DownloadsPage />} />
+        <Route path="/donate" element={<DonationPage />} />
+        <Route path="/donation" element={<DonationPage />} />
+        <Route path="/membership" element={<MembershipPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <SiteFooter />

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import assetUrl from '../utils/assetUrl.js';
+import LocationMap from '../components/LocationMap.jsx';
 
 const programs = [
   { icon: 'fa-kit-medical', title: 'Medical Assistance', text: 'Support for treatment and medical emergencies.' },
@@ -31,47 +32,65 @@ const testimonials = [
 
 function HeroSection() {
   return (
-    <header className="hero w-100">
-      <div className="container">
-        <div className="row position-relative overflow-hidden text-white">
-          <img src={assetUrl('assets/hero-illustration.png')} className="img-fluid w-100" alt="" />
-          <div className="col-lg-7 my-5 position-absolute top-0 start-0 hero-copy">
-            <h1 className="display-6 fw-bold">Honoring our defenders,<br />empowering our veterans.</h1>
-            <p className="lead mb-4">A unified platform for welfare, support, and advocacy for India’s Ex-Servicemen.</p>
-            <a
-              href="#programs"
-              className="btn btn-light btn-lg me-2"
-              onClick={(event) => {
-                event.preventDefault();
-                document.getElementById('programs')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              Our Mission
-            </a>
-            <Link to="/about" className="btn btn-outline-light btn-lg">Join Us</Link>
+    <section className="home-hero">
+      <img className="home-hero-image" src={assetUrl('assets/hero-illustration.png')} alt="" fetchPriority="high" />
+      <div className="home-hero-content container">
+        <div className="home-hero-copy">
+          <p className="home-eyebrow">Voice of Ex-Servicemen Society</p>
+          <h1>Honoring our defenders,<br />empowering our veterans.</h1>
+          <p className="home-hero-lead">A unified platform for welfare, support, and advocacy for India’s Ex-Servicemen.</p>
+          <div className="home-hero-actions">
+            <Link to="/services" className="btn btn-light btn-lg">Explore our services</Link>
+            <Link to="/about" className="btn btn-outline-light btn-lg">About the Society</Link>
           </div>
         </div>
       </div>
-    </header>
+    </section>
+  );
+}
+
+function HomeIntro() {
+  return (
+    <section className="home-intro" aria-labelledby="home-intro-title">
+      <div className="home-intro-mark" aria-hidden="true">
+        <i className="fa-solid fa-shield-halved"></i>
+      </div>
+      <div>
+        <p className="home-eyebrow">Together, in service</p>
+        <h2 id="home-intro-title">A stronger voice for the veteran community</h2>
+        <p>We bring ex-servicemen together and help connect them with welfare support, guidance, and a community that understands their service.</p>
+      </div>
+      <Link to="/about" className="btn btn-outline-success">Learn about us</Link>
+    </section>
   );
 }
 
 function ProgramsSection() {
   return (
     <section id="programs" className="mb-5">
-      <h2 className="h3 fw-bold mb-4">Our Welfare Programs</h2>
+      <div className="home-section-heading">
+        <div>
+          <p className="home-eyebrow">How we help</p>
+          <h2>Support for every next step</h2>
+          <p>Explore the areas where our community can help ex-servicemen and their families.</p>
+        </div>
+        <Link to="/services" className="btn btn-outline-success">View all services</Link>
+      </div>
       <div className="row g-3">
         {programs.map((program) => (
           <div className="col-sm-6 col-md-4" key={program.title}>
-            <article className="card h-100 program-card">
-              <div className="card-body text-center">
-                <div className="icon bg-success text-white mb-3 rounded-circle">
-                  <i className={`fa-solid ${program.icon}`} aria-hidden="true"></i>
+            <Link to="/services" className="home-program-link">
+              <article className="card h-100 program-card">
+                <div className="card-body">
+                  <div className="icon bg-success text-white mb-3 rounded-circle">
+                    <i className={`fa-solid ${program.icon}`} aria-hidden="true"></i>
+                  </div>
+                  <h3 className="h5 card-title">{program.title}</h3>
+                  <p className="card-text small text-muted">{program.text}</p>
+                  <span className="home-card-action">Explore support <i className="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
                 </div>
-                <h3 className="h5 card-title">{program.title}</h3>
-                <p className="card-text small text-muted">{program.text}</p>
-              </div>
-            </article>
+              </article>
+            </Link>
           </div>
         ))}
       </div>
@@ -82,8 +101,12 @@ function ProgramsSection() {
 function NewsSection() {
   return (
     <section id="news" className="mb-5">
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2 className="h3 fw-bold mb-0">News &amp; Updates</h2>
+      <div className="home-section-heading">
+        <div>
+          <p className="home-eyebrow">From our community</p>
+          <h2>News &amp; updates</h2>
+          <p>Stories, events, and updates for ex-servicemen and their families.</p>
+        </div>
         <Link to="/news" className="btn btn-outline-success">All News</Link>
       </div>
       <div className="row g-3">
@@ -94,6 +117,7 @@ function NewsSection() {
               <div className="card-body">
                 <h3 className="h5 card-title">{item.title}</h3>
                 <p className="card-text small text-muted">{item.text}</p>
+                <Link to="/news" className="home-card-action">Read updates <i className="fa-solid fa-arrow-right" aria-hidden="true"></i></Link>
               </div>
             </article>
           </div>
@@ -106,7 +130,14 @@ function NewsSection() {
 function CommunitySection() {
   return (
     <section id="community" className="mb-5">
-      <h2 className="h3 fw-bold mb-4">Community Support</h2>
+      <div className="home-section-heading">
+        <div>
+          <p className="home-eyebrow">Stronger together</p>
+          <h2>Community support</h2>
+          <p>Find connection, share experience, and stay involved with a supportive community.</p>
+        </div>
+        <Link to="/contact" className="btn btn-outline-success">Get involved</Link>
+      </div>
       <div className="row g-3">
         {communityItems.map((item) => (
           <div className="col-md-4" key={item.title}>
@@ -129,7 +160,12 @@ function TestimonialsSection() {
 
   return (
     <section className="mb-5">
-      <h2 className="h3 fw-bold mb-4">Testimonials</h2>
+      <div className="home-section-heading">
+        <div>
+          <p className="home-eyebrow">Shared experiences</p>
+          <h2>Words from our community</h2>
+        </div>
+      </div>
       <div className="testimonial-carousel">
         <div className="card p-4" aria-live="polite">
           <p className="mb-2">“{testimonials[activeIndex][0]}”</p>
@@ -158,12 +194,13 @@ function TestimonialsSection() {
 
 function JoinSection() {
   return (
-    <section id="join" className="mb-5">
+    <section id="join" className="home-join-section mb-5">
       <div className="row g-4 align-items-center">
         <div className="col-lg-6">
-          <h2 className="h3 fw-bold">Become a Member</h2>
-          <p className="text-muted">Join our community to access programs, events and peer support.</p>
-          <Link className="btn btn-success" to="/about">Learn More</Link>
+          <p className="home-eyebrow">Stay connected</p>
+          <h2>Be part of the community</h2>
+          <p>Join fellow ex-servicemen and stay connected to programs, events, and peer support.</p>
+          <Link className="btn btn-light" to="/membership">Become a member</Link>
         </div>
         <div className="col-lg-6">
           <div className="card p-3">
@@ -190,8 +227,12 @@ function JoinSection() {
 function ContactSection() {
   return (
     <section id="contact" className="mb-5">
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2 className="h3 fw-bold mb-0">Get In Touch</h2>
+      <div className="home-section-heading">
+        <div>
+          <p className="home-eyebrow">We’re here to help</p>
+          <h2>Get in touch</h2>
+          <p>Reach out to our team or find us on the map.</p>
+        </div>
         <Link to="/contact" className="btn btn-outline-success">Contact Us</Link>
       </div>
       <div className="row g-4">
@@ -217,15 +258,7 @@ function ContactSection() {
           </div>
         </div>
         <div className="col-md-6">
-          <div className="ratio ratio-16x9 rounded overflow-hidden shadow-sm">
-            <iframe
-              src="https://www.google.com/maps?q=59%20Vipin%20Garden%20Extension%20Dwarka%20New%20Delhi%20110059&output=embed"
-              style={{ border: 0 }}
-              allowFullScreen=""
-              loading="lazy"
-              title="Voice of Ex-Servicemen Society location"
-            ></iframe>
-          </div>
+          <LocationMap className="ratio ratio-16x9 rounded overflow-hidden shadow-sm" />
         </div>
       </div>
     </section>
@@ -236,8 +269,9 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <main className="mt-5">
+      <main className="home-main">
         <div className="container">
+          <HomeIntro />
           <ProgramsSection />
           <NewsSection />
           <CommunitySection />

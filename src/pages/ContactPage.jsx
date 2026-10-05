@@ -1,4 +1,5 @@
 import PageBanner from '../components/PageBanner.jsx';
+import LocationMap from '../components/LocationMap.jsx';
 
 export default function ContactPage() {
   return (
@@ -36,15 +37,7 @@ export default function ContactPage() {
               </address>
               <p><strong>Phone:</strong> <a href="tel:9897468767">9897468767</a></p>
               <p><strong>Email:</strong> <a href="mailto:info@voiceofexservicemen.in">info@voiceofexservicemen.in</a></p>
-              <div className="ratio ratio-16x9 rounded overflow-hidden shadow-sm mt-auto">
-                <iframe
-                  src="https://www.google.com/maps?q=59%20Vipin%20Garden%20Extension%20Dwarka%20New%20Delhi%20110059&output=embed"
-                  style={{ border: 0 }}
-                  allowFullScreen=""
-                  loading="lazy"
-                  title="Voice of Ex-Servicemen Society location"
-                ></iframe>
-              </div>
+              <LocationMap className="ratio ratio-16x9 rounded overflow-hidden shadow-sm mt-auto" />
             </div>
           </div>
         </div>

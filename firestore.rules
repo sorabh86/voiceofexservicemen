@@ -1,0 +1,52 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /membershipApplications/{applicationId} {
+      allow create: if request.resource.data.keys().hasOnly([
+          'fullName',
+          'email',
+          'phone',
+          'serviceDetails',
+          'donationAmount',
+          'termsAccepted',
+          'consent',
+          'submittedAt'
+        ])
+        && request.resource.data.keys().hasAll([
+          'fullName',
+          'email',
+          'phone',
+          'serviceDetails',
+          'termsAccepted',
+          'consent',
+          'submittedAt'
+        ])
+        && request.resource.data.fullName is string
+        && request.resource.data.fullName.size() >= 2
+        && request.resource.data.fullName.size() <= 100
+        && request.resource.data.email is string
+        && request.resource.data.email.size() <= 254
+        && request.resource.data.email.matches('^[^@]+@[^@]+\\.[^@]+$')
+        && request.resource.data.phone is string
+        && request.resource.data.phone.size() >= 7
+        && request.resource.data.phone.size() <= 20
+        && request.resource.data.phone.matches('^[0-9+(). -]+$')
+        && request.resource.data.serviceDetails is string
+        && request.resource.data.serviceDetails.size() <= 1000
+        && (
+          !('donationAmount' in request.resource.data)
+          || (
+            (request.resource.data.donationAmount is int
+              || request.resource.data.donationAmount is float)
+            && request.resource.data.donationAmount >= 500
+          )
+        )
+        && request.resource.data.consent == true
+        && request.resource.data.termsAccepted == true
+        && request.resource.data.submittedAt == request.time;
+
+      allow read, update, delete: if false;
+    }
+  }
+}

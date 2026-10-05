@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import LanguageSelector from './LanguageSelector.jsx';
 import assetUrl from '../utils/assetUrl.js';
@@ -18,6 +18,17 @@ const navigation = [
 export default function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  useEffect(() => {
+    function handleEscape(event) {
+      if (event.key === 'Escape') {
+        setMenuOpen(false);
+      }
+    }
+
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, []);
+
   return (
     <header className="site-header">
       <div className="utility-bar text-white">
@@ -28,9 +39,9 @@ export default function SiteHeader() {
             <span><i className="fa-solid fa-location-dot me-2" aria-hidden="true"></i>59, Vipin Garden Extension Dwarka, New Delhi-110059</span>
           </div>
           <div className="header-actions d-flex align-items-stretch">
-            <Link to="/policy" className="donate-link"><i className="fa-regular fa-heart me-2" aria-hidden="true"></i>Donate</Link>
-            <Link to="/about"><i className="fa-solid fa-user me-2" aria-hidden="true"></i>Become a Member</Link>
-            <Link className="m-1" to="/policy" aria-label="Donation information"><img src={assetUrl('assets/upi-icon.png')} alt="UPI" /></Link>
+            <Link to="/donate" className="donate-link"><i className="fa-regular fa-heart me-2" aria-hidden="true"></i>Donate</Link>
+            <Link to="/membership"><i className="fa-solid fa-user me-2" aria-hidden="true"></i>Become a Member</Link>
+            <Link className="m-1" to="/donate" aria-label="Donation information"><img src={assetUrl('assets/upi-icon.png')} alt="UPI" /></Link>
           </div>
         </div>
       </div>
@@ -45,11 +56,25 @@ export default function SiteHeader() {
             <small className="text-success d-block">(Registration No. 2223/2014-15 under Society Act 1860)</small>
             <small className="d-block">(An All India Ex-Servicemen JCOs/NCOs/ORs Movement)</small>
           </div>
-          <div className="visitor-panel d-flex flex-column align-items-center justify-content-center text-center">
-            <div className="visitor-stat"><strong>Total Visitor - </strong><span>951,498</span></div>
-            <div className="visitor-stat"><strong>Total Visit - </strong><span>10,418,763</span></div>
+          <aside className="visitor-panel" aria-label="Website statistics and language options">
+            <div className="visitor-heading">
+              <span className="visitor-heading-icon" aria-hidden="true">
+                <i className="fa-solid fa-chart-line"></i>
+              </span>
+              <span>VISITOR STATISTICS</span>
+            </div>
+            <dl className="visitor-stats">
+              <div className="visitor-stat">
+                <dt>Total Visitors</dt>
+                <dd>951,498</dd>
+              </div>
+              <div className="visitor-stat">
+                <dt>Total Visits</dt>
+                <dd>10,418,763</dd>
+              </div>
+            </dl>
             <LanguageSelector />
-            <div className="social-links mt-2">
+            <div className="social-links">
               <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Voice of Ex-Servicemen on Facebook">
                 <i className="fa-brands fa-facebook-f" aria-hidden="true"></i>
               </a>
@@ -57,28 +82,29 @@ export default function SiteHeader() {
                 <i className="fa-brands fa-youtube" aria-hidden="true"></i>
               </a>
             </div>
-          </div>
+          </aside>
         </div>
       </div>
 
-      <nav className="navbar navbar-expand-lg main-nav navbar-dark">
+      <nav className="navbar navbar-expand-xl main-nav navbar-dark" aria-label="Main navigation">
         <div className="container">
           <button
             className="navbar-toggler ms-auto"
             type="button"
             aria-controls="site-navigation"
             aria-expanded={menuOpen}
-            aria-label="Toggle navigation"
+            aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
             onClick={() => setMenuOpen((open) => !open)}
           >
-            <span className="navbar-toggler-icon"></span>
+            <i className={`fa-solid ${menuOpen ? 'fa-xmark' : 'fa-bars'}`} aria-hidden="true"></i>
+            <span>{menuOpen ? 'Close' : 'Menu'}</span>
           </button>
           <div className={`collapse navbar-collapse${menuOpen ? ' show' : ''}`} id="site-navigation">
             <ul className="navbar-nav w-100 justify-content-between">
               {navigation.map(({ to, label, end }) => (
                 <li className="nav-item" key={to}>
                   <NavLink
-                    className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
+                    className={({ isActive }) => `nav-link${isActive ? ' active' : ''}${to === '/contact' ? ' nav-contact' : ''}`}
                     to={to}
                     end={end}
                     onClick={() => setMenuOpen(false)}

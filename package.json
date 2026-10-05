@@ -6,15 +6,23 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
-    "preview": "vite preview --host 0.0.0.0"
+    "preview": "vite preview --host 0.0.0.0",
+    "test:firebase": "node --env-file=.env.local test/firebase-connection.js",
+    "test:members": "node --env-file=.env.local test/seed-test-members.js",
+    "deploy": "npm run build && gh-pages -d dist -b gh-pages"
   },
   "dependencies": {
+    "firebase": "^12.19.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.18.4"
   },
+  "overrides": {
+    "@grpc/grpc-js": "1.13.6"
+  },
   "devDependencies": {
     "@vitejs/plugin-react": "^6.1.2",
+    "gh-pages": "^6.1.1",
     "vite": "^8.3.2"
   }
 }
