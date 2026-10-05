@@ -1,0 +1,1 @@
+import{r as e,t}from"./index-D9T4iaSk.js";var n=t();function r(){return(0,n.jsxs)(`main`,{className:`container py-5 text-center`,children:[(0,n.jsx)(`h1`,{children:`Page Not Found`}),(0,n.jsx)(`p`,{children:`The page you requested does not exist.`}),(0,n.jsx)(e,{className:`btn btn-success`,to:`/`,children:`Return Home`})]})}export{r as default};
