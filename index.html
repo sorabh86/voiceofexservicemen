@@ -7,6 +7,69 @@
     <meta name="keywords" content="veterans, ex-servicemen, welfare, support, advocacy" />
     <title>Voice of Ex-Servicemen Society (Regd.) India</title>
     <link rel="icon" type="image/png" href="%BASE_URL%assets/logo.png" />
+    <style>
+      #initial-loading-screen {
+        align-items: center;
+        background: rgba(7, 19, 62, .55);
+        display: flex;
+        inset: 0;
+        justify-content: center;
+        padding: 1rem;
+        position: fixed;
+        z-index: 2000;
+      }
+
+      #initial-loading-screen .loading-card {
+        align-items: center;
+        background: #fff;
+        border: 1px solid rgba(255, 255, 255, .65);
+        border-radius: 1rem;
+        box-shadow: 0 1.25rem 4rem rgba(7, 19, 62, .28);
+        color: #202860;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+        max-width: 100%;
+        min-height: 18rem;
+        padding: 2rem;
+        text-align: center;
+        width: 28rem;
+      }
+
+      #initial-loading-screen img {
+        height: 7rem;
+        max-width: 100%;
+        object-fit: contain;
+        width: 7rem;
+      }
+
+      #initial-loading-screen .loading-spinner {
+        animation: initial-loading-rotate .8s linear infinite;
+        border: 4px solid rgba(16, 42, 140, .14);
+        border-radius: 50%;
+        border-top-color: #102a8c;
+        height: 2.5rem;
+        width: 2.5rem;
+      }
+
+      #initial-loading-screen .loading-label {
+        color: #4d5870;
+        font: 650 .92rem system-ui, sans-serif;
+      }
+
+      @keyframes initial-loading-rotate {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        #initial-loading-screen .loading-spinner {
+          animation-duration: 1.8s;
+        }
+      }
+    </style>
     <script>
       const basePath = '/voiceofexservicemen';
       const redirect = window.location.search;
@@ -19,6 +82,13 @@
     <script type="module" src="/src/main.jsx"></script>
   </head>
   <body class="flex flex-col min-h-screen bg-slate-50">
+    <div id="initial-loading-screen" role="status" aria-live="polite" aria-busy="true">
+      <div class="loading-card">
+        <img height="80" src="%BASE_URL%assets/logo.png" alt="Voice of Ex-Servicemen Society" />
+        <span class="loading-spinner" aria-hidden="true"></span>
+        <span class="loading-label">Loading page…</span>
+      </div>
+    </div>
     <div id="root"></div>
   </body>
 </html>

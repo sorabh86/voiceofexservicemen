@@ -80,6 +80,10 @@ function PageTitle() {
 }
 
 export default function App() {
+  useEffect(() => {
+    document.getElementById('initial-loading-screen')?.remove();
+  }, []);
+
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
       <ScrollToTop />
